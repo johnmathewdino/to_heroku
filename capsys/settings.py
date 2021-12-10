@@ -31,11 +31,11 @@ print('basedir', NEW_BASE_DIR)
 SECRET_KEY = 'd3tf8$tfd$85mp)i5$om(x0^5#y_733q@f3l+#78&vzg=%d@fz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
 # ALLOWED_HOSTS = ['capsys.pythonanywhere.com']
 #
-# DEBUG = True
+DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
