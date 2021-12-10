@@ -1,0 +1,318 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Group Proposal
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        .mid-icon {
+            font-size: 66px;
+        }
+
+        .forum-item {
+            margin: 10px 0;
+            padding: 10px 0 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .views-number {
+            font-size: 24px;
+            line-height: 18px;
+            font-weight: 400;
+        }
+
+        .forum-container,
+        .forum-item small {
+            color: #999;
+        }
+
+        .forum-item .forum-sub-title {
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .forum-info {
+            text-align: center;
+        }
+
+        .forum-icon {
+            float: left;
+            width: 30px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        a.forum-item-title {
+            color: inherit;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        a.forum-item-title:hover {
+            color: inherit;
+        }
+
+        .forum-item.active a.forum-item-title {
+            color: #1ab394;
+        }
+
+        @media (max-width: 992px) {
+            .forum-info {
+                margin: 15px 0 10px 0;
+                /* Comment this is you want to show forum info in small devices */
+                display: none;
+            }
+
+            .forum-desc {
+                float: none !important;
+            }
+        }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+
+        .text-navy {
+            color: #1ab394;
+        }
+
+        .mid-icon {
+            font-size: 66px !important;
+        }
+
+        .m-b-sm {
+            margin-bottom: 10px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="ibox-content forum-container">
+
+            {#            {% for titles in titlelists %}#}
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex">
+                        <img src="{{ title.user.userprofile.image.url }}" class="me-3 rounded-circle"
+                             style="width: 50px; height: 50px">
+                        <div>
+
+                            <h5 class="fw-bold">
+                                {{ title.title }}
+                            </h5>
+
+                            <small class="text-muted">Posted on {{ title.created_at }}
+
+                                {% if title.created_at != title.updated_at %}
+                                    Modified on {{ title.updated_at }}
+                                {% endif %}
+
+                            </small>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    {{ title.description }}
+                </div>
+
+
+
+
+
+
+                {% if title.status == "Accepted" %}
+                    <div class="card-footer" style="background: #0dcaf0">
+
+                        Title Status: {{ title.status }}
+                    </div>
+                {% elif title.status == "Rejected" %}
+                    <div class="card-footer" style="background: #ea9799">
+
+                        Title Status: {{ title.status }}
+                    </div>
+                {% elif title.status == "Title Needs Clarifications" %}
+                    <div class="card-footer" style="background: #b7b1b1">
+
+                        Title Status: {{ title.status }}
+                    </div>
+
+                {% else %}
+                    <div class="card-footer">
+                        Title Status: Title proposed <small><i>await approval</i></small>
+                    </div>
+
+
+                {% endif %}
+            </div>
+            <br>
+            <div style="display: flex;justify-content: center">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="status" value="Accepted" class="btn btn-success"
+                            style="margin-right: 10px">
+                        Approve Title
+                    </button>
+                    <button type="submit" name="status" value="Title Needs Clarifications" class="btn btn-secondary"
+                            style="margin-right: 10px; margin-left: 10px">
+                        Title Needs Clarification
+                    </button>
+                    <button type="submit" name="status" value="Rejected" class="btn btn-danger"
+                            style="margin-left: 10px">
+                        Reject Title
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="container">
+
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+
+            {#HEADER TITLE#}
+            <div class="ibox-content m-b-sm border-bottom">
+
+                <div id="div_id_comment" class="form-group">
+                    <label for="id_comment" class=" requiredField">
+                        Comment
+
+                    </label>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="">
+                        <textarea name="comment" cols="40" rows="4" class="textarea form-control"
+                                  required="" id="id_comment" spellcheck="false"></textarea>
+                        </div>
+                        <div style="display: flex;justify-content: center;margin-top: 10px">
+                            <button value="Comment" type="submit" class="btn btn-primary" name="Comment">Comment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+            
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %} 
+
+
+
+
+    <div class="container">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox-content m-b-sm border-bottom">
+                <div style="display: flex;justify-content: center;">
+                    <h5>Comments</h5>
+                </div>
+
+                <div class="ibox-content forum-container">
+                    {% for comment in comments %}
+
+                        <div class="row">
+                            <div class="col-11">
+                                <div class="d-flex">
+                                    <img src="{{ comment.author.userprofile.image.url }}"
+                                         class="me-3 rounded-circle"
+                                         style="width: 50px; height: 50px">
+                                    <div>
+                                        <h5 class="fw-bold">{{ comment.author.get_full_name }}
+                                        </h5>
+                                        <small class="text-muted">Commented on {{ comment.created_at }}</small>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% if comment.author.get_full_name == name %}
+
+                            <div class="col-1">
+                                <a href="{% url 'edit_comment' comment.id %}">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                            </div>
+                            {% endif %}
+                            
+
+
+                        </div>
+
+                        <div class="forum-item active">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="forum-icon">
+
+                                    </div>
+                                    <div class="forum-sub-title" style="color: #3d3b3b">
+                                        {{ comment.comment }}
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="col-11">
+                            <a href="{% url 'Cp_ViewReply' comment.id %}">View Reply<i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <br>
+
+
+                    {% endfor %}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+        var d = document.getElementById("title-nav");
+        d.className += " active";
+    </script>
+{% endblock %}

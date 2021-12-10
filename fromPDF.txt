@@ -1,0 +1,612 @@
+CLOUD-BASED WEB APPLICATION SYSTEM FOR CAPSTONE
+PROJECT MONITORING, MANAGING, AND EVALUATING
+WITH PLAGIARISM CHECKER
+
+A Capstone Project
+Presented to the Faculty of
+SORSOGON STATE UNIVERSITY
+Bulan Campus
+Bulan, Sorsogon
+
+In Partial Fulfillment of the
+Requirements for the Degree
+Bachelor of Science in Information Technology
+
+BY
+JOHN MATHEW D. DIÑO
+RAMIL G. BUEN
+KASANDRA G. ALVAREZ
+ROLLY L. GILOS JR.
+
+MAY 2021
+
+ii
+EXECUTIVE SUMMARY
+
+Capstone Project is a partial requirements undertaken by student taking
+Computer Studies degree programs like BSIT and BSIS. Students and faculty
+members faces problems in submitting, managing deliverables, and monitoring
+progresses when using manual or semi-computerized method. With the rise of
+technologies, students are expected to be knowledgeable and be able to experience
+the benefits of new technologies. Sorsogon State University – Bulan Campus,
+specifically the ICT Department, experiences this problems and does not have
+an online centralized system for the various activities involved in completing
+capstone projects. With that in mind, this project entitled “Cloud-Based Web
+Application for Capstone Project Monitoring, Managing, and Evaluating System
+with Plagiarism Checker” aims to assist and streamline the current Capstone
+Process between Department Dean, Capstone Professor, Students, and their
+adviser and panelists. The system aims to (1) carry out and deliver the following
+features and modules related to monitoring, managing, and evaluating capstone
+projects electronically: (1.1) project progress monitoring, (1.2) topic/title proposal,
+(1.3) adviser and panelists selection, (1.4) task and activities management, (1.5)
+deliverable’s submission, monitoring, and management, (1.6) defense scheduler
+and manuscript evaluation, (1.7) user’s management, (1.8) grades management,
+(1.9) student management, (1.10) capstone project guide and formatting, and
+
+iii
+(1.11) discussion forum; (2) integrate an existing plagiarism checker that will
+check the manuscript for plagiarism, locate it, and report via the percentage
+of the amount of plagiarized content; and (3) Test and evaluate the proposed
+project, based on ISO/IEC 25010 Software Product Quality, in terms of: (3.1)
+functional stability, (3.2) performance efficiency, (3.3) compatibility, (3.4) usability,
+(3.5) reliability, (3.6) security, (3.7) maintainability; and (3.8) portability of
+the system. In the span of two semesters, the proponents will develop the
+system using Iterative approach for the development life cycle where the flow
+of development focuses on an initial, simplified implementation, which then
+progressively gains more complexity and a broader feature set until the final
+system is complete; Object-Oriented for the analysis and design applying objectoriented programming; and Bottom-up as the development approach. The system
+will be verified, validated, and tested using client and users survey and interview,
+functional and non-functional validation, and positive and negative testing.
+
+TABLE OF CONTENTS
+
+iv
+
+EXECUTIVE SUMMARY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+ii
+
+LIST OF FIGURES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+v
+
+CHAPTER
+I
+
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+1.1 Project Context . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+1.2 Purpose and Descriptions . . . . . . . . . . . . . . . . . . . . .
+
+4
+
+1.3 Objectives of the Study . . . . . . . . . . . . . . . . . . . . . .
+1.4 Scope and Limitations . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+9
+
+II Review of Related Systems . . . . . . . . . . . . . . . . . . . . . . . . 11
+BIBLIOGRAPHY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+Appendices . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+A
+
+22
+
+Wireframe . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+
+LIST OF FIGURES
+
+v
+
+A.1 Login Wireframe Design . . . . . . . . . . . . . . . . . . . . . . . . . 23
+A.2 Register Wireframe Design . . . . . . . . . . . . . . . . . . . . . . . 24
+A.3 Dean Dashboard Wireframe Design . . . . . . . . . . . . . . . . . . 24
+A.4 Capstone Professor Dashboard Wireframe Design . . . . . . . . . . 25
+A.5 Faculty Home Wireframe Design . . . . . . . . . . . . . . . . . . . . 25
+A.6 Student Home Wireframe Design . . . . . . . . . . . . . . . . . . . . 26
+
+CHAPTER I
+Introduction
+
+This chapter will discuss the context of the project, its purpose and description,
+objectives, and its scope and limitations, aiming to explain the concept and the
+importance of the current project.
+
+1.1
+
+Project Context
+
+Computer Studies degree programs (BSIT, BSIS, and BSCS) usually include a
+capstone project as a partial requirement, involving two (2) to four (4) members,
+and are undertaken in the final year of study in which students conduct a software
+development project [2, 8, 10, 12, 18]. Students will apply and demonstrate the
+concepts and the comprehensive knowledge they’ve learned throughout their
+study with this project. It allows students to improve their current skills and
+acquire new ones and gain real-world experience from this "realistic experiential
+learning" [3, 6, 8, 10, 12, 17].
+In undertaking and managing Capstone Projects, students and faculty
+members may encounter problems, such as project completion delays, inferior
+quality products, unstructured development processes, and overall dissatisfaction
+in students and advisory [10, 11, 15]. In many instances, students face a hard
+
+2
+time deciding on the topic they want to work on and even where to start [14].
+Capstone advisers, on the other hand, also face a problem with monitoring
+and managing capstone projects. They sometimes receive a lack of information
+about the students’ progress and may also experience difficulties in handling
+the documentation or deliverables because of the variety of tools used [10].
+With the advancement of technology, students are expected to be knowledgeable
+about new technologies. With capstone projects implemented in a manual or
+semi-computerized manner, even when having various technologies that can
+ease tasks, students cannot showcase their knowledge and learn the benefits
+the present technologies can provide [13, 19]. Finally, although they can use
+various technologies, the lack of a centralized system can make it difficult to
+collaborate, review, monitor, manage, and even evaluate the project development
+and deliverables [9].
+Sorsogon State University – Bulan Campus is one of the Tertiary Schools in
+Sorsogon that does not have or uses Capstone, Thesis, or other project management
+systems in a single venue. They use a semi-computerized manner of creating
+Capstone Projects and integrate different technology in managing them. Some
+of the technologies they use are Google Drive, Google Spreadsheets, Email, and
+Facebook Messenger for communication but uses no centralized system to monitor
+the progress of the students nor an easier way of proposing a title, selecting their
+
+3
+preferred adviser or panelists, or evaluate a paper in an online environment.
+In an attempt to alleviate the problems stated above and to improve
+capstone projects, this project called Cloud-Based Web Application System for
+Capstone Project Monitoring, Managing, and Evaluating with Plagiarism Checker
+is an online system that aims to assist and streamline the current Capstone
+Process between the students, Capstone Professor, Capstone Adviser, and their
+panelists in a single venue. This project focuses on the title/topic proposal,
+selecting a capstone adviser and panelist, managing the project deliverables,
+monitoring the group progress, checking for plagiarism, and evaluating the
+submitted manuscript.
+The system will provide a separate interface for its three different users –
+the students, the faculty, and the dean. All of the users can access the system by
+providing necessary information in the login module. After logging in, the dean,
+as the super admin of the system, can have full access to the system, granting
+him/her the ability to manage the users where he/she can register new faculty,
+grant or remove privileges, assign a faculty that will be the Capstone Professor,
+and limit the number of students the faculty will be able to handle as supervisor.
+Furthermore, the faculty is subdivided into the capstone professor, who will also
+act as the admin granted by the super admin, and the other faculty, who can
+be the adviser and/or the panelist. The capstone professor can have additional
+
+4
+permission to manage capstone projects such as manage students’ groups, set and
+edit manuscript format, view and print the students’ grades and other reports,
+schedule the date and time of the defense, or evaluate the students’ manuscript.
+Additionally, the capstone professor, together with the other faculty, can manage
+and assess the deliverables sent by the students, accept or decline the proposed
+title/topic, and request as adviser or panelist. On the other hand, the students
+can manage their group, select topic/title, adviser, and panelist, and submit their
+deliverables.
+In addition, the system has an integrated plagiarism checker existing
+online that will help the students check and locate plagiarism in their manuscript
+to avoid and edit it if they unintentionally plagiarize other works. The plagiarism
+checker, accessible to all the users, will provide reports on the percentage, location,
+and content plagiarized.
+
+1.2
+
+Purpose and Descriptions
+
+This project intends to create a cloud-based web application system for a capstone
+project that allows users to monitor, manage, and evaluate the capstone project
+specifically, its deliverables. This system functions all processes of developing
+capstone projects using a cloud-based application to have a convenient and
+reliable connection between students and faculties online.
+
+5
+This system also has a plagiarism checker feature using external integrated
+software which scans the manuscript and compares its components to other works
+using a search engine. This function ensures the reliability and originality of the
+project.
+The beneficiaries of this project are the following:
+Students. They can quickly generate and organize their capstone project
+using this system. They’ll be able to select the topic or title they want to work in,
+their preferred adviser and panelist, submit deliverables, monitor their progress,
+and view their grades.
+Capstone Professors. This system can act as a single venue for monitoring,
+management, and evaluation of capstone projects which can benefit Capstone
+Professor by having one system that can assist him/her from the start of the
+project (grouping the students) up to the end (manuscript evaluation).
+Faculty. The faculty, regardless of their role (adviser/panelist), can benefit
+from this system by being able to monitor and manage their advisory group/s
+easily and/or comment and evaluate their manuscript.
+Department Dean. The system can help the dean of the department
+easily manage the faculty eligible to advise and/or become an evaluator of
+capstone projects. This system also enables the dean to select the faculty who
+will become the Capstone Professor, granting him/her additional privileges and
+
+6
+control in the Capstone Project Management.
+Future system developers. This project can help prospective developers
+who will conduct studies related to this system. They can make the present
+system their reference in improving monitoring, managing, and evaluating
+capstone projects.
+
+1.3
+
+Objectives of the Study
+
+This proposed capstone project aims to design and develop a cloud-based web
+application for monitoring, managing, and evaluating capstone projects with an
+external integrated plagiarism checker. Specifically, it seeks to:
+
+1. Carry out and deliver the following features and modules related to monitoring,
+managing, and evaluating capstone projects electronically:
+
+1.1. Project Progress monitoring - it allows students and faculty to know the
+progress made by the students with regards to their capstone project
+1.2. Topic or title proposal - allows the students to submit titles or topics
+that they want to work with and for the faculty to be able to view,
+comment, and/or accept the title/topic.
+1.3. Adviser and Panelist selection - enables the students to select their
+preferred capstone adviser and panelists to be accepted or declined by
+
+7
+the said chosen faculty.
+1.4. Task and Activities management - Allows the faculty to create tasks
+with submission forms, set its deadline, and other announcements to
+be posted in the student’s dashboard.
+1.5. Deliverable’s submission, monitoring, and management - allows the
+students to submit their deliverables and for teachers to view, manage,
+and comment on the submitted deliverables.
+1.6. Defense Scheduler and Manuscript evaluation - allows the Capstone
+Professor to schudule the evaluation date and time of the students
+and allows the selected panelist to evaluate and eventually, grade the
+submitted manuscript.
+1.7. User’s management - enables user profiles to manage and access
+the right information depending on their profile (student, capstone
+professor, adviser, and panelist). Additionally, the super administrator
+will be able to register new faculty, grant or remove privilege, and limit
+the number of students the faculty will handle
+1.8. Grades management - allows the instructors to view, post, and print
+the student’s grade
+1.9. Student management - allows the administrator to generate lists of
+
+8
+students, their group, their capstone project title, their chosen adviser,
+and panelist.
+1.10. Capstone Project Guide and Formatting - allows the faculty to post
+information and standard of creating the Capstone Project. It includes
+the paper formatting (font style and font size to be used) and the
+chapters and subsections’ arrangement.
+1.11. Discussion Forum - allows students to hold discussions or raise queries
+by posting a topic together with their questions to be seen and answered
+by the faculty or by their peers.
+
+2. Integrate an existing plagiarism checker that will check the manuscript
+for plagiarism, locate it, and report via the percentage of the amount of
+plagiarized content.
+3. Test and evaluate the proposed project, based on ISO/IEC 25010 Software
+Product Quality, in terms of:
+
+3.1. Functional Stability;
+3.2. Performance Efficiency;
+3.3. Compatibility;
+3.4. Usability;
+
+9
+3.5. Reliability
+3.6. Security;
+3.7. Maintainability; and
+3.8. Portability of the system
+
+1.4
+
+Scope and Limitations
+
+This study entitled "Cloud-based Web Application for Monitoring, Managing,
+and Evaluating Capstone Projects with Plagiarism Checker" focuses on assisting
+students and faculty members on their capstone projects which concentrate on the
+following capstone project process: the title/topic proposal, selecting a capstone
+adviser and panelist, managing the project deliverables, monitoring the group
+progress, checking for plagiarism and evaluating the submitted manuscript.
+This system is intended to be used and tested by the Faculty and Students
+of Sorsogon State University – Bulan Campus Information and Communication
+Technology Department for managing, monitoring, evaluating, checking plagiarism
+of Capstone Projects.
+The primary users of this system are limited to students, faculty members,
+a capstone professor or instructor that will act as administrator, and the department
+dean as the super administrator. The proposed project can handle tertiary
+
+10
+Capstone and Thesis projects; however, it may also include Secondary Level
+Researchers and other project-based activities that follow the project process
+stated above.
+The system does not include other functions like a recommender system
+that can automatically recommend titles or topics to students, an archiving
+feature that stores past written projects of students, nor a chatting feature that
+will enable direct messaging between the students and their adviser.
+The plagiarism detection capabilities of the system depend on the capabilities,
+specifically on its speed and reliability, of the external plagiarism detector
+integrated into the system.
+The project is limited to a website application running on a Windows
+Operating System and does not include a mobile application or desktop application.
+
+CHAPTER II
+Review of Related Systems
+
+The following papers are systems related to the present study in terms of online
+monitoring, management, evaluation of Capstone Projects, Thesis, or Researches.
+The gathered related systems were from different foreign and local sources such
+as books, magazines, journals, and websites.
+The University of Malaysia Pahang (UMP) Thesis Management Systems of
+Rabman [16] is a web management system for thesis management that can store
+data, read, mark, and comment on the thesis. The system also includes a system
+page where they can be informed about the thesis through announcements and
+other information and guides in thesis writing. Additionally, the system has a
+private message feature where students can send messages or queries to their
+supervisor related to the development of their manuscripts.
+The system of [16] is similar to the current project where both aimed at
+easing students’ manuscript submission to their supervisors or adviser. Both
+systems can manage and mark or evaluate the students’ submitted papers;
+however, in terms of their differences, the system above offers private messaging
+to their users, which is not included in the scope of the current project.
+Torrechiva et al. [19] project development program for Capstone Projects
+
+12
+monitoring and management is an online system that aims to improve the current
+process of capstone management. The project focuses on project deliverables
+management, group progress monitoring, student-teacher interactions, and
+security of the submitted documents. The system was deployed at the University
+of Cebu – College of Computer Studies .
+The system mentioned relates to the present system on its objectives of
+improving the current capstone process. They both focus on the deliverable’s
+management and group progress monitoring. However, the present system is
+unique compared to the project above in terms of having an evaluation system
+and a tool where students can check their manuscripts for plagiarism.
+The paper of Lo [9] presented an online collaboration system for capstone
+projects and other project-oriented courses. The features included in the system
+were project grading, social media integration, and review of documents. It is
+developed based on the open-sourced project management system called Redmine.
+Compared to the present proposed project and the system of [9], they aim
+to create a system that will handle capstone projects, especially its deliverables,
+and monitor students’ progress in a single venue. Furthermore, the system above
+integrates social media in their system, which is not available in the present
+proposed system. On the other hand, the current system includes manuscript
+evaluation and a plagiarism checker tool that is not included in the system stated
+
+13
+above.
+A study conducted by Olarte et al. [10] presented a tool for students and
+professors or advisors to assist in the management and development of capstone
+projects for Computer Science Engineering. It includes planning and monitoring
+tasks, document management, learning community using a social network built
+in the system, informing students of their peers’ progress, and facilitating contact
+between students and faculty developing projects.
+The study of [10] is related to our proposed project in terms of aiming
+to create a tool or system that can assist students and faculty in managing
+capstone projects. They are similar in their features aside from the above system’s
+integration of social networks and the present system’s inclusion of evaluation
+module and plagiarism checker.
+Grooms [5] developed a program that aimed to provide the University of
+North Carolina Wilmington (UNCW) Masters of Science in Computer Science and
+Information Systems (MSCSIS) a program for Capstone Management System
+(CMS) for the students, faculty, administrators, and program director to automate
+the capstone thesis or project process. The CMS enables the said users to complete
+the capstone process using an integrated web application. The CMS simplifies
+the current manual approval process saving time for all stakeholders. The CMS
+also provides high-level reporting capabilities for high-level decision-making .
+
+14
+The system of [5] and the proposed system both aimed to ease the capstone
+process workflow. Additionally, both systems have monitoring of students’ progress
+and managing of capstone deliverables capabilities. The difference between the
+two is that the system above can only record and announce the capstone proposal
+and defense, where the present system can be used for the title proposal and final
+defense of the manuscripts.
+Another paper of Grooms [4] aimed to replace a paper form-based process
+that was confusing, time-consuming, and error-prone describe with a new system
+and implementation of a web application for the approval workflow of a master’s
+program in information systems. Student statuses are stored in a relational
+database, and program-level reports are provided for administrative decisionmaking. The main goals were to help guide students through the Theses or
+Project processes, ease the burden of obtaining approvals, and handle the needed
+paperwork .
+The paper of [4] is similar to the proposed project in some respect. They aim
+to streamline the process and centralize all paperwork/process steps in one venue
+to eliminate the loss of papers. Both systems provide a progress tracking or status
+report, which allows faculty to monitor the improvement of the students. In terms
+of their differences, the project above focused on the committee’s approval to the
+proposed Theses or Projects of the students, hence Approval System. In contrast,
+
+15
+the current project focuses on manuscript management and evaluation with a
+plagiarism checker.
+The manuscript created by Orozco [13] aimed to develop a web-based
+Evaluation System which can allow panelist and advisers of College of Computer
+Studies of University of Perpetual Help Biñan to evaluate the graduating students
+and their Thesis/Capstone Projects through an innovative and automated way of
+grading.
+The mentioned system presented an automated way of evaluating the
+Thesis or Capstone Projects of graduating students in their school, which is an
+available feature in the present proposed system. In addition, the present project
+has a management and progress monitoring module and plagiarism checker,
+which is not present in the system of the mentioned manuscript above.
+The Learning Management System of Baeva [1] is a software system
+for managing and supporting the interaction between graduate students and
+their supervisors in the course of thesis writing. The system allows to plan,
+manage and track the progress of students’ thesis or capstone projects. It
+includes management of activities, working out an individual development plan
+for graduate student’s thesis work, work stages management, regulation of the
+interaction between a graduate student and the supervisor, resource management,
+and maintenance of primary documents .
+
+16
+The system of [1] has similarities with the current project when it comes
+to the management of capstone deliverables and its users. It is also similar when
+it comes to tracking progress or monitoring student’s activities, and both aim
+to reduce administrative and academic burden in terms of capstone or thesis
+management. However, the system above has a direct messaging feature for
+student-supervisor interaction, which is not included in the present system. On
+the other hand, the system above does not include an evaluation system and a
+plagiarism checker feature, which are available in the present proposed project.
+The system of Hamid [7] of the Department of Computer Science, Cihan
+University-Erbil in Iraq, was successfully developed and implemented as a webbased application for the scientific affairs department and was used and tested
+by one of the Iraqi governmental universities. The main goal of this application is
+to collect all submitted publication information in a central database, generating
+different types of publication reports, generating various real-time statistics,
+saving all researcher’s lead in the Higher Education Institutions (HEIs), and
+facilitating checking and tracking the submitted researches. The Researches
+Management System aimed to manage research information in HEIs to improve
+the efficiency and effectiveness of the research information management processes.
+It is designed for three types of users: the System Admin, College Admin, and
+the Researchers .
+
+17
+Both systems, the project of [7] and the proposed system, tackled the
+management of scholarly articles and aimed to manage and improve research
+information processes. However, the system above contained finished or published
+manuscripts and only focused on handling those manuscripts. On the other hand,
+the present project addresses unfinished manuscripts until they can be issued.
+The Thesis Evaluation System of Zong, Y. [20] aimed to develop an online
+evaluation system that can substitute the paper-based that is currently used in
+the Department of Computer Graphics Technology Purdue University in Indiana,
+United States. It is expected that this new evaluation system will increase
+the efficiency of the thesis evaluation process and reduce the workload of the
+advisors and committee members. It also aimed to ease storage, organization,
+and visualization of evaluation results.
+The mentioned project is related to the present system in terms of aiming
+to replace paper-based Thesis or Capstone Project processes. Both systems
+include an automated evaluation system that can be used to grade or mark
+the manuscripts submitted by the students. The above project, however, only
+focuses on the said evaluation system while the proposed present system includes
+other features like title proposal, adviser and panelist selection, manuscript
+management, and plagiarism checker.
+An applied project of Owusu-Afriyie [14] aimed to develop a management
+
+18
+system that can primarily monitor and accompany all activities involved in the
+capstone process. It is designed for three types of users – students, faculty, and
+computer science coordinator, and was deployed in the Ashesi University campus
+in Ghana, Africa. The system solved two pressing needs in the said university: it
+simplifies the entire capstone process and presents students with the opportunity
+to work on exciting projects that have been proposed by faculty.
+The stated system of [14] is related to the present system in its aim of
+simplifying the capstone process by efficiently managing manuscripts, faculty
+selection, and progress tracking. The difference between the two is that the
+system above includes a meeting scheduler between the faculty and students,
+which is only present in the currently proposed system in terms of scheduling
+capstone defense. In addition, the present system includes an evaluation module
+for the manuscript as well as a plagiarism checker, which is not available to the
+above system.
+
+BIBLIOGRAPHY
+
+[1] Desislava Baeva.
+
+Management of graduate student’s thesis writing
+
+through a specialized software system. Journal of International Scientific
+Publications: Educational Alternatives, 14(1000021):336–341, 2016.
+[2] Mac Clark and Roger D. Boyle. A Personal Theory of Teaching Computing
+Through Final Year Projects. Computer Science Education, 9(3):200–214,
+1999.
+[3] Annegret Goold. Providing Process for Projects in Capstone Courses. ACM
+Sigcse Bulletin, 35(3):26–29, 2003.
+[4] James Grooms, Douglas Kline, and Jeffrey Cummings.
+the capstone process:
+
+Streamlining
+
+A time-saving approval system for graduate
+
+theses/projects. Information Systems Education Journal, 14(4):81, 2016.
+[5] James Grooms, Douglas Kline, Jeffrey Cummings, and Devon Simmonds. A
+web application for capstone management for the mscsis program. Annals
+of the Master of Science in Computer Science and Information Systems at
+UNC Wilmington, 8(1), 2014.
+[6] Jatinder N D Gupta and Robert M Wachter. A capstone course in the
+information systems curriculum. International Journal of Information
+
+20
+Management, 18(6):427–441, 1998.
+[7] Omar Talal Hamid.
+
+Design and implementation a novel research
+
+management system. Cihan University-Erbil Scientific Journal, 3(2):21–24,
+2019.
+[8] Mike Joy. Undergraduate computing projects — an investigation into the
+student experience. Innovation in Teaching and Learning in Information
+and Computer Sciences, 8(1):60–78, 2009.
+[9] Dan Chia-Tien Lo and Orlando Karam. Enhance capstone projects with
+a new online collaboration system.
+
+In 2013 IEEE 13th International
+
+Conference on Advanced Learning Technologies, pages 217–218. IEEE, 2013.
+[10] Juan José Olarte, César Domínguez, and Francisco José García-Izquierdo.
+A tool for capstone project management in computer science engineering. In
+2014 International Symposium on Computers in Education (SIIE), pages
+65–68. IEEE, 2014.
+[11] Juan José Olarte, César Domínguez, Francisco José García-Izquierdo,
+and Arturo Jaime.
+
+Capstone projects in computer science: evaluated
+
+by stakeholders. In Proceedings of the 2014 conference on Innovation &
+technology in computer science education, pages 345–345, 2014.
+
+21
+[12] Commission on Higher Education.
+
+Revised policies, standards, and
+
+guidelines for bscs, bsis, and bsit programs. Memorandum Order Number
+25, 2015.
+[13] Michael Orozco. Web-based thesis/capstone project defense evaluation
+system of the css binan. Unpublished Manuscript, 2016.
+[14] Philip Owusu-Afriyie. Capstone management system. Ashesi Institutional
+Repository, 2020.
+[15] César Domínguez Pérez, Arturo Jaime Elizondo, Francisco J GarcíaIzquierdo, and Juan José Olarte Larrea. Supervision typology in computer
+science engineering capstone projects. Journal of Engineering Education,
+101(4), 2012.
+[16] Mohammad Thalhah Amir Bin Abdul Rabman. UMP Thesis Management
+System. PhD thesis, Universiti Malysia Pahang, 2012.
+[17] Hamilton Scott. Management of real-world projects in university computing
+courses. Proceedings of Student-Faculty Research Day, pages A21–A27,
+2008.
+
+22
+[18] CORPORATE The Joint Task Force on Computing Curricula. Computing
+curricula 2001. Journal on Educational Resources in Computing (JERIC),
+1(3es):1–es, 2001.
+[19] Leoven Torrechiva, Marc Christian Orais, Ken Gabaca, Ronald Ian Gabutan,
+Jhury Espinosa, Celso Malinao Jr, and Melvin Niñal. Online uc-cics capstone
+projects monitoring and management system. Unpublished Manuscript,
+2012.
+[20] Yanhua Zong. A Thesis Evaluation System. PhD thesis, Purdue University
+Graduate School, 2019.
+
+APPENDIX A
+Wireframe
+
+Figure A.1. Login Wireframe Design
+
+24
+
+Figure A.2. Register Wireframe Design
+
+Figure A.3. Dean Dashboard Wireframe Design
+
+25
+
+Figure A.4. Capstone Professor Dashboard Wireframe Design
+
+Figure A.5. Faculty Home Wireframe Design
+
+26
+
+Figure A.6. Student Home Wireframe Design
+
+

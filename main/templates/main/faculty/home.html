@@ -1,0 +1,360 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'main/css/dashboard.css' %}">
+
+    <style>
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        .mid-icon {
+            font-size: 66px;
+        }
+
+        .forum-item {
+            margin: 10px 0;
+            padding: 10px 0 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .views-number {
+            font-size: 24px;
+            line-height: 18px;
+            font-weight: 400;
+        }
+
+        .forum-container,
+        .forum-item small {
+            color: #999;
+        }
+
+        .forum-item .forum-sub-title {
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .forum-info {
+            text-align: center;
+        }
+
+        .forum-icon {
+            float: left;
+            width: 30px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        a.forum-item-title {
+            color: inherit;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        a.forum-item-title:hover {
+            color: inherit;
+        }
+
+        .forum-item.active a.forum-item-title {
+            color: #1ab394;
+        }
+
+        @media (max-width: 992px) {
+            .forum-info {
+                margin: 15px 0 10px 0;
+                /* Comment this is you want to show forum info in small devices */
+                display: none;
+            }
+
+            .forum-desc {
+                float: none !important;
+            }
+        }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+
+        .text-navy {
+            color: #1ab394;
+        }
+
+        .mid-icon {
+            font-size: 66px !important;
+        }
+
+        .m-b-sm {
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="row">
+                            <div class="col-1" style="margin-right: 10px">
+                                <div class=" pull-left m-r-md">
+                                    <i class="fa fa-chart-line text-navy mid-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h2>Dashboard</h2>
+                                <span>Welcome Prof. <b> {{ name }}</b></span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" style="justify-content: center">
+            <div class="col-lg-3 col-sm-6">
+                <a href="{% url 'FacultyAdviserAndPanelistView' %}" style="text-decoration: none; color: white">
+
+                    <div class="card-box" style="background-color: #4B0082 ">
+                        <div class="inner">
+                            <h3>{{ advisercount }}</h3>
+                            <p> Groups as Adviser </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-book-reader" aria-hidden="true"></i>
+                        </div>
+                        <a href="{% url 'FacultyAdviserAndPanelistView' %}" class="card-box-footer">View More <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-lg-3 col-sm-6">
+                <a href="{% url 'FacultyAdviserAndPanelistView' %}" style="text-decoration: none; color: white">
+
+                    <div class="card-box" style="background-color: #33c0b0 ">
+                        <div class="inner">
+                            <h3>{{ panelistcount }}</h3>
+                            <p> Groups as Panelist </p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-gavel" aria-hidden="true"></i>
+                        </div>
+                        <a href="{% url 'FacultyAdviserAndPanelistView' %}" class="card-box-footer">View More <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <i class="fas fa-bullhorn"></i>
+                                Announcement board
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body board" style="overflow: auto; max-height: 350px">
+                        <table class="table table-hover table-borderless table-responsive">
+
+                            {#TABLE FOR ANNOUNCEMENTS                    #}
+                            {% for announcement in announcements %}
+
+                                <tbody>
+                                <tr>
+                                    <td>{{ announcement.timestamp |date:"d M, g:i a " }}</td>
+                                    <td>{{ announcement.detail }}</td>
+
+
+                                </tr>
+                                </tbody>
+                                {# /table#}
+
+
+
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-week"></i> Upcoming Events
+                    </div>
+
+                    <div class="card-body board" style="overflow: auto; max-height: 350px">
+                        <table class="table table-hover table-borderless table-responsive">
+                            <p><strong> Submissions</strong></p>
+                            {#TABLE FOR  SUBMISSION#}
+                            {% for sub in upcoming_submission %}
+                                {% if sub.duedate > now %}
+                                    <tbody>
+                                    <tr>
+
+                                        <td><a href="{% url 'faculty_submissions' sub.id %}"
+                                               style=" text-decoration: none; color: black;">{{ sub.duedate }}</a></td>
+                                        <td><a href="{% url 'faculty_submissions' sub.id %}"
+                                               style=" text-decoration: none; color: black;">{{ sub.title }}</a></td>
+                                        <td>{{ sub.duedate|timeuntil }}</td>
+
+                                    </tr>
+                                    </tbody>
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                        <p><strong> Schedule</strong></p>
+                        <table class="table table-hover table-borderless table-responsive">
+                            {% for sched in upcoming_schedule %}
+                        
+                            <tbody>
+                                <tr>
+                                    <td>{{ sched.date.date_event}}</td>
+                                    <td>{{ sched.time }}</td>
+                                    <td>{{ sched.event }}</td>
+                                    <td>{{ sched.date.date_event |timeuntil}}</td>
+                        
+                        
+                                </tr>
+                            </tbody>
+                        
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar me-1"></i>
+                Monitoring bar
+            </div>
+            <a href="{% url 'facmonitoring' %}">
+
+                <div class="card-body" style="height: 300px;overflow-x: auto">
+                    <canvas id="myBarChart" width="100%" height="20%"></canvas>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+
+    <script src="{% static 'main/js/Chart.min.js' %}" crossorigin="anonymous"></script>
+
+    <script>
+        var d = document.getElementById("dashboard-nav");
+        d.className += " active";
+    </script>
+    <script>
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+
+        // Bar Chart Example
+        var ctx = document.getElementById("myBarChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data:
+                {
+                    labels: {{ labels | safe }}
+                    ,
+                    datasets: [{
+                        label: "Advisoree Group",
+                        backgroundColor: "rgba(2,117,216,1)",
+                        borderColor: "rgba(2,117,216,1)",
+                        data: {{ data | safe }},
+                    }],
+
+                }
+            ,
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'Submission'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 15,
+                            autoSkip: false,
+
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: {% if groupnum != 0 %}
+                                {{groupnum}}
+                            {% else %}
+                                5
+                            {% endif %},
+                            maxTicksLimit: 10,
+                            stepSize: 1,
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                },
+                legend: {
+                    display: true
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+    </script>
+
+{% endblock %}

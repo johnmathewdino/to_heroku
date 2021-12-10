@@ -1,0 +1,219 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Group Proposal
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        .mid-icon {
+            font-size: 66px;
+        }
+
+        .forum-item {
+            margin: 10px 0;
+            padding: 10px 0 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .views-number {
+            font-size: 24px;
+            line-height: 18px;
+            font-weight: 400;
+        }
+
+        .forum-container,
+        .forum-item small {
+            color: #999;
+        }
+
+        .forum-item .forum-sub-title {
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .forum-info {
+            text-align: center;
+        }
+
+        .forum-icon {
+            float: left;
+            width: 30px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        a.forum-item-title {
+            color: inherit;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        a.forum-item-title:hover {
+            color: inherit;
+        }
+
+        .forum-item.active a.forum-item-title {
+            color: #1ab394;
+        }
+
+        @media (max-width: 992px) {
+            .forum-info {
+                margin: 15px 0 10px 0;
+                /* Comment this is you want to show forum info in small devices */
+                display: none;
+            }
+
+            .forum-desc {
+                float: none !important;
+            }
+        }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+
+        .text-navy {
+            color: #1ab394;
+        }
+
+        .mid-icon {
+            font-size: 66px !important;
+        }
+
+        .m-b-sm {
+            margin-bottom: 10px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="ibox-content m-b-sm border-bottom">
+
+
+                        <div class="row">
+                            <div class="col-1" style="margin-right: 25px">
+                                <div class=" pull-left m-r-md">
+                                    <i class="fas fa-users-cog text-navy mid-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h2>List of Group</h2>
+                                <span>insert text here</span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <form>
+                        <div style="align-items: right; justify-content: right; display: flex;">
+                            <input type="button" class="btn btn-outline-primary" value="Print" onclick="window.print()" />
+                        </div>
+                    </form>
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        {% for group in groups %}
+
+                            <div class="card">
+                                <h5 class="card-header">({{ group.id }}) {{ group.groupname }}</h5>
+                                <div class="card-body">
+                                    <table class="table table-responsive">
+
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row" class="col-1">1</th>
+                                            <td>{{ group.mem1.first_name }}</td>
+                                            <td>{{ group.mem1.last_name }}</td>
+                                            <td>{{ group.mem1.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>{{ group.mem2.first_name }}</td>
+                                            <td>{{ group.mem2.last_name }}</td>
+                                            <td>{{ group.mem2.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>{{ group.mem3.first_name }}</td>
+                                            <td>{{ group.mem3.last_name }}</td>
+                                            <td>{{ group.mem3.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>{{ group.mem4.first_name }}</td>
+                                            <td>{{ group.mem4.last_name }}</td>
+                                            <td>{{ group.mem4.email }}</td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                                <div class="card-footer text-muted" style="font-size: small">
+                                    Created on: {{ group.created_at }}<br>
+                                    {% if group.created_at != group.updated_at %}
+                                        Modified on: {{ group.updated_at }}
+                                    {% endif %}
+
+
+                                </div>
+
+                            </div>
+                            <br>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+        var d = document.getElementById("group-member-nav");
+        d.className += " active";
+    </script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Proposal Result
+{% endblock %}
+
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <ul>
+      <h4><a class="nav-link active " href="{% url 'Title' %}" style="color: black">
+          Proposed Title
+        </a>
+      </h4>
+    </ul>
+    <ul>
+      <h4><a class="nav-link active " href="/proposal/group_list/" style="color: black">
+          Title Results
+        </a>
+      </h4>
+    </ul>
+  </div>
+  <hr>
+
+  <div class="container-fluid">
+    <h3>{{title.user}} Group</h3>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          {% for a in comment %}
+          <th scope="col">{{a.author}}</th>
+          {% endfor %}
+          <th scope="col">Remarks </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>{{ title.title }}</th>
+          {% for s in comment %}
+          {% if s.status == "Approved" %}
+          <td class="text-success">{{s.status}}</td>
+          {% elif s.status == "Optional" %}
+          <td class="text-primary">{{s.status}}</td>
+          {% elif s.status == "Declined" %}
+          <td class="text-danger">{{s.status}}</td>
+          {% endif %}
+          {% endfor %}
+          <td>{{comment.statusnum}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+{% endblock %}
+{% block js %}
+    <script>
+        var d = document.getElementById("title-nav");
+        d.className += " active";
+    </script>
+{% endblock %}

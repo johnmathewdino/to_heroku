@@ -1,0 +1,550 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'main/css/dashboard.css' %}">
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 10px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fa fa-chart-line text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <h2>Dashboard</h2>
+                            <span>Welcome <b>Prof. {{ name }}</b></span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <a href="{% url 'add_student' %}" style="text-decoration: none; color: white">
+                <div class="card-box bg-blue">
+                    <div class="inner">
+                        <h3> {{ studentnum }} </h3>
+                        <p> Total Students </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    </div>
+                    <a href="{% url 'add_student' %}" class="card-box-footer">View More <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="{% url 'add_faculty' %}" style="text-decoration: none; color: white">
+
+                <div class="card-box bg-green">
+                    <div class="inner">
+                        <h3> {{ facnum }} </h3>
+                        <p> Total Faculty </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-chalkboard-teacher" aria-hidden="true"></i>
+                    </div>
+                    <a href="{% url 'add_faculty' %}" class="card-box-footer">View More <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6 ">
+            <a href="{% url 'group_list' %}" style="text-decoration: none; color: white">
+
+                <div class="card-box bg-orange">
+                    <div class="inner">
+                        <h3> {{ groupnum }} </h3>
+                        <p> Groups </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <a href="{% url 'group_list' %}" class="card-box-footer">View More <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="{% url 'add_cp' %}" style="text-decoration: none; color: white"></a>
+            <div class="card-box bg-red">
+                <div class="inner">
+                    <h3>{{ cpnum }}</h3>
+                    <p>Capstone Professor</p>
+                    <div class="icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+                <a href="{% url 'add_cp' %}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+
+            </div>
+            </a>
+
+        </div>
+    </div>
+    <div class="row" style="justify-content: center">
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="{% url 'FacultyAdviserAndPanelistView' %}" style="text-decoration: none; color: white">
+
+                <div class="card-box" style="background-color: #4B0082 ">
+                    <div class="inner">
+                        <h3>{{ advisercount }}</h3>
+                        <p> Groups as Adviser </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-book-reader" aria-hidden="true"></i>
+                    </div>
+                    <a href="{% url 'FacultyAdviserAndPanelistView' %}" class="card-box-footer">View More <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-lg-3 col-sm-6">
+            <a href="{% url 'FacultyAdviserAndPanelistView' %}" style="text-decoration: none; color: white">
+
+                <div class="card-box" style="background-color: #33c0b0 ">
+                    <div class="inner">
+                        <h3>{{ panelistcount }}</h3>
+                        <p> Groups as Panelist </p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-gavel" aria-hidden="true"></i>
+                    </div>
+                    <a href="{% url 'FacultyAdviserAndPanelistView' %}" class="card-box-footer">View More <i
+                            class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fas fa-bullhorn"></i>
+                            Announcement board
+                        </div>
+                        <div class="col-6" style="text-align: right">
+                            <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Create
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body board" style="overflow: auto; font-size: smaller; max-height: 340px">
+                    <table class="table table-hover table-borderless table-responsive">
+
+                        {#TABLE FOR ANNOUNCEMENTS                    #}
+                        {% for announcement in announcements %}
+
+                        <tbody>
+                            <tr>
+                                <td class="col-3">{{ announcement.timestamp |date:"d M, g:i a " }}</td>
+                                <td>{{ announcement.detail }}</td>
+                                <td class="col-1">
+                                    <a href="{% url 'edit_announcement' announcement.id %}">
+                                        <i class="fas fa-edit"></i></button>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        {# /table#}
+
+
+
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-calendar-week"></i> Upcoming Events
+                </div>
+
+                <div class="card-body board" style="overflow: auto; font-size: smaller; max-height: 360px">
+                    <p><strong> Submissions</strong></p>
+                    <table class="table table-hover table-borderless table-responsive">
+                        {#TABLE FOR  SUBMISSION#}
+                        {% for sub in upcoming_submission %}
+                        {% if sub.duedate > now %}
+                        <tbody>
+                            <tr>
+                                <td><a href="{% url 'cp_submissions' sub.id %}"
+                                        style=" text-decoration: none; color: black;">{{ sub.duedate }}</a></td>
+                                <td><a href="{% url 'cp_submissions' sub.id %}"
+                                        style=" text-decoration: none; color: black;">{{ sub.title }}</a></td>
+                                <td>{{ sub.duedate|timeuntil }}</td>
+
+                            </tr>
+                        </tbody>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                    <p><strong> Schedule</strong></p>
+                    <table class="table table-hover table-borderless table-responsive">
+                        {% for sched in upcoming_schedule %}
+                        
+                        <tbody>
+                            <tr>
+                                <td>{{ sched.date.date_event}}</td>
+                                <td>{{ sched.time }}</td>
+                                <td>{{ sched.event }}</td>
+                                <td>{{ sched.date.date_event |timeuntil}}</td>
+                                
+                        
+                            </tr>
+                        </tbody>
+                        
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-bar me-1"></i>
+            Monitoring bar
+        </div>
+        <a href="{% url 'monitoring' %}">
+
+            <div class="card-body" style="height: 300px;overflow-x: auto">
+                <canvas id="myBarChart" width="100%" height="20%"></canvas>
+            </div>
+        </a>
+    </div>
+
+
+</div>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    Student vs Faculty
+                </div>
+                <div class="card-body">
+                    <canvas id="studvsfac" width="100%" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    Faculty vs Capstone Professor
+                </div>
+                <div class="card-body">
+                    <canvas id="studpercourse" width="100%" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{#    Modal for announcements#}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Announcement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+
+                <div class="modal-body">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'main/js/Chart.min.js' %}" crossorigin="anonymous"></script>
+<script src="{% static 'main/js/simple_datatables.js' %}" crossorigin="anonymous"></script>
+<script src="{% static 'main/js/datatables-simple-demo.js' %}"></script>
+<script src="{% static 'main/assets/demo/chart-pie-percourse.js' %}"></script>
+
+{#    FOR ADDING ACTIVE STATE IN NAVBAR#}
+<script>
+    var d = document.getElementById("dashboard-nav");
+    d.className += " active";
+</script>
+
+
+{#    PIECHART OF STUDENTS VS FACULTY#}
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Pie Chart Example
+    var ctx = document.getElementById("studvsfac");
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["Students", "Faculty"],
+            datasets: [{
+                data: [{{ studentnum }}, {{ facnum }}],
+        backgroundColor: ['#007bff', '#28a745'],
+    }],
+            },
+        });
+
+</script>
+
+{#    PIECHART OF STUDENTS PER COURSE#}
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Pie Chart Example
+    var ctx = document.getElementById("studpercourse");
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["CP1-A", "CP1-B", "CP2"],
+            datasets: [{
+                data: [3, 4, 5],
+                backgroundColor: ['#007bff', '#28a745', '#00000'],
+            }],
+        },
+    });
+
+</script>
+
+{#SCRIPT FOR BARCHART#}
+<script>
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Bar Chart Example
+    var ctx = document.getElementById("myBarChart");
+    var myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data:
+        {
+
+            labels: {{ labels | safe }},
+    datasets: [{
+        label: "Groups",
+        backgroundColor: "rgba(2,117,216,1)",
+        borderColor: "rgba(2,117,216,1)",
+        data: {{ data | safe }},
+                    }],
+
+                }
+            ,
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'Submission'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 15
+                }
+            }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: {% if groupnum != 0 %}
+                                {{ groupnum }}
+        {% else %}
+        5
+        {% endif %},
+        maxTicksLimit: 10,
+            stepSize: 1,
+                        },
+    gridLines: {
+        display: true
+    }
+                    }],
+                },
+    legend: {
+        display: true
+    }
+            }
+        });
+
+</script>
+
+{% endblock %}

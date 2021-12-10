@@ -1,0 +1,353 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Activity Submission
+{% endblock %}
+
+{% block style %}
+
+
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+            {
+            #.forum-info {
+                #
+            }
+
+                {
+                # margin: 15px 0 10px 0;
+                #
+            }
+
+                {
+                #
+                /* Comment this is you want to show forum info in small devices */
+                #
+            }
+
+                {
+                #display: none;
+                #
+            }
+
+                {
+                #
+            }
+
+            #
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 25px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fa fa-paperclip text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <h2>Activities</h2>
+                            <span>This section contains submission forms for the manuscript</span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                {% elif message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% if userrole == "1" or userrole == "2" %}
+                <div class="container-fluid"
+                    style="margin-bottom: 10px; align-items: center; justify-content: center; display: flex">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Create Activity Submission
+                    </button>
+                    <br>
+                </div>
+                {% endif %}
+
+
+                {% if submissions %}
+                <div class="ibox-content forum-container">
+
+                    {% for submission in submissions %}
+                    <div class="forum-item active">
+                        <div class="row" href="">
+
+                            <div class="col-md-8" href="">
+
+                                <a href="
+
+{% if userrole == "1" or userrole == "2" %}
+{% url 'cp_submissions' submission.id %}
+{% elif userrole == "3" %}
+{% url 'faculty_submissions' submission.id %}
+{% else %}
+{% url 'submit' submission.id %}
+{% endif %}
+
+
+
+" class="forum-item-title">{{ submission.title | title}} {% if submission.for_evaluation == 1 %}<span
+                                        class="badge bg-success">For Evaluation</span>{% endif  %}</a>
+                                <div class="forum-sub-title">
+                                    <h6 style="color: black">
+                                        Due: {{ submission.duedate | date:'D, d M, g:i A' }}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                {% if userrole == "1" or userrole == "2" %}
+                                <a href="{% url 'Edit_SubmissionTitleViews' submission.id %}"
+                                    style=" text-decoration: none; color: #47ad47">
+                                    <i class="far fa-edit" style=" text-decoration: none;"></i>
+                                </a>
+                                <a href="{% url 'Delete_SubmissionTitleViews' submission.id %}"
+                                    style=" text-decoration: none; color: #be4040">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                                {% endif %}
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create Topic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div id="div_id_title" class="form-group">
+                        <label for="id_title" class=" requiredField">
+                            Title
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="text" name="title" maxlength="100" class="textinput textInput form-control"
+                                required="" id="id_title">
+                        </div>
+                    </div>
+
+                    <div id="div_id_sub_details" class="form-group">
+                        <label for="id_sub_details" class=" requiredField">
+                            Sub details
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <textarea name="submission_detail" cols="40" rows="10" class="textarea form-control"
+                                required="" id="id_sub_details" spellcheck="false"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div id="div_id_duedate" class="form-group">
+                        <label for="id_duedate" class=" requiredField">
+                            Duedate
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="datetime-local" name="duedate" class="datetimeinput form-control" required=""
+                                id="id_duedate">
+                        </div>
+                    </div>
+
+                    <br>
+                    <!-- <input type="checkbox" value=True name="eval">
+                        <label>Check For Evaluation</label> -->
+
+                    <div class="form-check">
+                        
+
+                        <label for="edittitle" class="form-check-label">
+                            <input type="checkbox" value=True id="edittitle" name="eval" class="form-check-input">
+                            <i>For Evaluation</i>
+                        </label>
+
+                        <div id="dvtitle" style="display: none">
+                            <br>
+                            <p>Choose Type of Grading</p>
+                            <input class="form-check-input" value="PF" type="radio" name="type" id="PF"
+                                checked>
+                            <label class="form-check-label" for="PF">
+                                Pass/Fail
+                            </label>
+                            <br>
+
+                            <input class="form-check-input" value="N" type="radio" name="type" id="N"
+                                checked>
+                            <label class="form-check-label" for="N">
+                                Numeric 
+                            </label>
+
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#edittitle").click(function () {
+            if ($(this).is(":checked")) {
+                $("#dvtitle").show();
+            } else {
+                $("#dvtitle").hide();
+            }
+        });
+    });
+</script>
+
+
+{#    FOR ADDING ACTIVE STATE IN NAVBAR#}
+<script>
+    var d = document.getElementById("submissions-nav");
+    d.className += " active";
+</script>
+
+
+
+
+{% endblock %}

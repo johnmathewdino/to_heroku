@@ -1,0 +1,357 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Evaluate
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                {#HEADER TITLE#}
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 25px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fa fa-balance-scale text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+
+                            <h2>{{ submission.submission_title }}</h2>
+                            <h5>{{ submission.user.userprofile.group_title }}</h5>
+                            <span>{{ submission.user.get_full_name }}'s Group</span>
+                            <br>
+                            <div>
+                                <br>
+                                {% if submission.pdf_submit %}
+                                <p>file: <a href="{{ submission.pdf_submit.url }}"
+                                        target="_blank">{{submission.filename }}</a></p>
+
+                                {% elif submission.submit_content %}
+                                <small><strong> Text:</strong> {{ submission.submit_content }}</small>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+
+
+<div class="container-fluid" style="margin-bottom: 10px; align-items: center; justify-content: center; display: flex">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Suggest or Recommend
+    </button>
+    <br>
+</div>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="ibox-content forum-container">
+
+            <div class="ibox-content">
+                <br>
+
+                <caption>
+                </caption>
+                <table class="table caption-top table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">Content</th>
+                            <th scope="col">Suggestions/recommendations</th>
+                            <th scope="col">Page</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    {% for eval in evaluation %}
+                    <tbody>
+                        <tr>
+                            <td>{{ eval.content }}</td>
+                            <td>{{ eval.recommendations }}</td>
+                            <td>{{ eval.page }}</td>
+                            <td>
+                                {% if eval.content == "" %}
+
+                                {% else %}
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <a href="{% url 'Edit_FacultyEvaluate' eval.id %}" class="btn btn-primary">Edit</a>
+                                    <a href="{% url 'Delete_FacultyEvaluate' eval.id %}"
+                                        class="btn btn-danger">Delete</a>
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                <br>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="ibox-content forum-container">
+
+
+
+
+            {% if not eval_grade %}
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if submission.eval_grade_submit == "N" %}
+
+                <label for="">Input Numeric Grade: </label>
+                <input type="number" name="N"> &nbsp;
+
+                {% elif submission.eval_grade_submit == "PF" %}
+
+                <input type="radio" id="P" name="PF" value="Passed" class="form-check-input">
+                <label class="form-check-label" for="P">Passed</label>
+
+                <input type="radio" id="F" name="PF" value="Failed" class="form-check-input">
+                <label class="form-check-label" for="F">Failed</label> &nbsp;
+                {% endif %}
+
+                <button type="submit" class="btn btn-outline-success btn-sm" value="grade"
+                    name="gradebutton">Submit</button>
+            </form>
+            <br>
+
+            {% else %}
+
+            <div style="margin-right: 100px">
+                <div style="margin-bottom: 10px; align-items: right; justify-content: right; display: flex">
+                    
+                    {% for eval_g in eval_grade %}
+                    
+                    {% if submission.eval_grade_submit == "N" %}
+                    <p> <strong>Grade: </strong>
+                        {% if eval_g.N <= 74.9 %}
+                        <mark style="background-color: rgb(197, 4, 4); color: white">{{eval_g.N}}</mark>
+                        {% else%}
+                        <mark style="background-color: green; color: white"> {{ eval_g.N }}</mark>
+                        {% endif %}
+                    </p>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'Edit_Evaluation_Grade' eval_g.id%}" style=" text-decoration: none; color: #47ad47">
+                        <i class="far fa-edit" style=" text-decoration: none;"></i>
+                    </a>
+                    &nbsp;
+                    <a href="{% url 'Delete_EvaluationGrade' eval_g.id %}"
+                        style=" text-decoration: none;margin-right: 100px; color: #be4040">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+
+                    {% elif submission.eval_grade_submit == "PF" %}
+                    <p><strong>Result: </strong>
+                        {% if eval_g.PF == "Passed" %}
+                        <mark style="background-color: green; color: white">{{eval_g.PF}}</mark>
+                        {% else %}
+                        <mark style="background-color: rgb(197, 4, 4); color: white">{{eval_g.PF}}</mark>
+                        {% endif %}
+                    </p>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="{% url 'Edit_Evaluation_Grade' eval_g.id%}" style=" text-decoration: none; color: #47ad47">
+                        <i class="far fa-edit" style=" text-decoration: none;"></i>
+                    </a>
+                    &nbsp;
+                    <a href="{% url 'Delete_EvaluationGrade' eval_g.id %}"
+                        style=" text-decoration: none;margin-right: 100px; color: #be4040">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    {% endif %}
+                    {%endfor%}
+                </div>
+
+
+            {% endif %}
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{#MODAL FOR TITLE MANUSCRIPT EVAL #}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Evaluate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'Faculty Evaluate' submission.id %}" method="POST">
+
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <label for="content">Content*</label>
+                    <input list="contents" name="content" id="content" class="form-control required">
+                    {# <datalist id="contents">#}
+                    {# {% for eval in evaluation %}#}
+                    {# <option value="{{ eval.content }}">#}
+                    {# {% endfor %}#}
+                    {# </datalist>#}
+
+                    {{ form | crispy }}
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="evaluate" name="evaluatebutton">Save
+                        changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    var d = document.getElementById("manuscripteval-nav");
+    d.className += " active";
+</script>
+
+{% endblock %}

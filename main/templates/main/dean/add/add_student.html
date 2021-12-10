@@ -1,0 +1,291 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Students
+{% endblock %}
+
+
+
+{% block style %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="ibox-content m-b-sm border-bottom">
+                <div class="row">
+                    <div class="col-1" style="margin-right: 25px">
+                        <div class=" pull-left m-r-md">
+                            <i class="fas fa-graduation-cap text-navy mid-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <h2>Student's List</h2>
+                        <span>Insert text here</span>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+<!-- Button trigger modal -->
+<div class="container" style="display: flex; justify-content: center; margin-bottom: 10px">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Student
+    </button>
+</div>
+
+
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox-content m-b-sm border-bottom">
+
+            <br>
+            <div style="text-align: right;" class="col-xs-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <label> Student Registration Code:
+                        <input type="text" disabled="h5" style="display: inline-block !important; height: 40px; "
+                            value="{{ code.code }}">
+                    </label>
+                    <button type="submit" value="generate" class="btn btn-primary btn-sm" id="generate"
+                        name="generate">Generate Code
+                    </button>
+                </form>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for Student in student %}
+                    <tr>
+                        <th scope="row">{{ Student.id }}</th>
+                        <td>{{ Student.first_name | title }}</td>
+                        <td>{{ Student.last_name | title }}</td>
+                        <td>{{ Student.username }}</td>
+                        <td>{{ Student.email }}</td>
+                        <td class="col-2">
+                            <form method="post">
+                                {% csrf_token %}
+                                {% if Student.is_active == True %}
+                                <button type="submit" class="btn btn-outline-secondary btn-sm" value="{{ Student.id }}"
+                                    id="deactivate" name="deactivate">Deactivate
+                                </button>
+                                {% else %}
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="{{ Student.id }}"
+                                    id="activate" name="activate">Activate
+                                </button>
+                                {% endif %}
+
+
+
+
+                                <button type="submit" class="btn btn-outline-danger btn-sm" value="{{ Student.id }}"
+                                    id="delete" name="delete">Delete
+                                </button>
+                            </form>
+
+                        </td>
+
+
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" name="first_name">
+
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" name="last_name">
+
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username">
+
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email">
+
+                    <label for="password">Password</label>
+                    <input type="text" disabled placeholder="!@#Default" class="form-control" name="password">
+
+                    <label for="role">Role</label>
+                    <input type="text" disabled placeholder="Student" class="form-control" name="role">
+
+                    <hr>
+                    <div class="mb-3">
+                        <label for="csvfile" class="form-label">Register Students by Batch (.csv)</label>
+                        <input class="form-control" type="file" id="csvfile" name="csvfile" accept=".csv">
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    var d = document.getElementById("stud-nav");
+    d.className += " active";
+</script>
+{% endblock %}

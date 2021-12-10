@@ -1,0 +1,107 @@
+{
+  "isQueriesFinished": "false",
+  "sources": [
+    {
+      "link": "https://jsonformatter.curiousconcept.com/",
+      "count": 5,
+      "percent": 75
+    },
+    {
+      "link": "https://jsonformatter.curiousconcept.com/?data=%7B%22Much%20JSON%21%22%3A%22So%20Wow%21%22%7D&amp;process=true",
+      "count": 2,
+      "percent": 24
+    },
+    {
+      "link": "https://www.grammarly.com/blog/comma/",
+      "count": 1,
+      "percent": 1
+    }
+  ],
+  "totalQueries": 8,
+  "plagPercent": 100,
+  "paraphrasePercent": 0,
+  "uniquePercent": 0,
+  "excludeURL": null,
+  "details": [
+    {
+      "query": "The JSON Formatter was created to help folks with debugging.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/",
+        "des": "About. The JSON Formatter was created to help folks with debugging. As JSON data is often output without line breaks to save space, it can be extremely difficult to actually read and makesense of it. This tool hoped to solve the problem by formatting and beautifying the JSON data so that it is easy to read and debug by human beings."
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "As JSON data is often output without line breaks to save space, it can be extremely difficult to actually read and make sense of it.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/",
+        "des": "As JSON data is often output without line breaks to save space, it can be extremely difficult to actually read and make sense of it. This tool hoped to solve the problem by formatting and beautifyingthe JSON data so that it is easy to read and debug by human beings."
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "This tool hoped to solve the problem by formatting and beautifying the JSON data so that it is easy to read and debug by human beings.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/",
+        "des": "This tool hoped to solve the problem by formatting and beautifying the JSON data so that it is easy to read and debug by human beings. To further expand the debugging capabilities, advanced JSON validation was soon added following the description set out …"
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "To further expand the debugging capabilities, advanced JSON validation was soon added following the description set out by Douglas Crockford of json.org in RFC 4627.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/",
+        "des": "To further expand the debugging capabilities, advanced JSON validation was soon added following the description set out by Douglas Crockford of json.org inRFC 4627. It has since been updated to allow validation of multiple JSON standards, including both current specifications RFC 8259 and ECMA-404."
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "It has since been updated to allow validation of multiple JSON standards, including both current specifications RFC 8259 and ECMA-404.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/",
+        "des": "It has since been updated to allow validation of multiple JSON standards, including both current specifications RFC 8259 and ECMA-404. Most recently, the capability to …"
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "Most recently, the capability to fix common JSON errors was added.",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/?data=%7B%22Much%20JSON%21%22%3A%22So%20Wow%21%22%7D&amp;process=true",
+        "des": "Most recently, the capability to fix common JSON errors was added. If enabled, it will replace incorrect quotes,add missing quotes, correct numeric keys, lowercase literals, escape unescaped characters, and remove comments and trailing commas."
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": " If enabled, it will replace incorrect quotes, add missing quotes, correct numeric keys, lowercase literals, escape unescaped characters, and remove comments and trailing ",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://jsonformatter.curiousconcept.com/?data=%7B%22Much%20JSON%21%22%3A%22So%20Wow%21%22%7D&amp;process=true",
+        "des": "If enabled, it will replace incorrect quotes, add missing quotes, correct numeric keys, lowercase literals, escape unescaped characters, and remove comments and trailing commas. Learn About JSON JSON or JavaScript Object Notation is a language-independent open data format that uses human-readable text to express data objects consisting of ..."
+      },
+      "paraphrase": "false"
+    },
+    {
+      "query": "commas. ",
+      "version": 3,
+      "unique": "false",
+      "display": {
+        "url": "https://www.grammarly.com/blog/comma/",
+        "des": "Commas may be placed after the closing parenthesis but not before either the opening or the closing parenthesis. If the sentence would not require anycommas if the parenthetical statement were removed, the sentence should not have anycommas when the parentheses are added."
+      },
+      "paraphrase": "false"
+    }
+  ]
+}

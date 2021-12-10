@@ -1,0 +1,312 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{#Edit and delete title submission#}
+
+
+{% block title %}
+Student Activities
+{% endblock %}
+
+{% block style %}
+
+
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+            {
+            #.forum-info {
+                #
+            }
+
+                {
+                # margin: 15px 0 10px 0;
+                #
+            }
+
+                {
+                #
+                /* Comment this is you want to show forum info in small devices */
+                #
+            }
+
+                {
+                #display: none;
+                #
+            }
+
+                {
+                #
+            }
+
+            #
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+
+                        <div class="col-10">
+                            <h2>{{ postsub.title | title }} {% if postsub.for_evaluation == 1 %}<span
+                                    class="badge bg-success">For Evaluation</span>{% endif  %}</h2>
+                            <br>
+                            <span>{{ postsub.submission_detail }}</span>
+                            <br>
+                            <br>
+                            <span>Due: <mark
+                                    style="background-color: green; color: white">{{ postsub.duedate }}</mark></span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                {% for message in messages %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                {% elif message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+
+
+                <div class="ibox-content forum-container">
+
+                    <table class="table caption-top table-striped table-bordered">
+                        <caption class="h3">Submission Status</caption>
+
+                        <tbody>
+
+                            <tr>
+                                <td class="col-2">Submission Status</td>
+                                <td>
+                                    {% if submits %}
+                                    {% for submit in submits %}
+
+                                    {% if submit %}
+                                    {{ submit.status }}
+                                <td>
+                                    <a href="{% url 'Student Comment View' submit.id %}">View Comments
+                                        <i class="fa fa-arrow-circle-right"></i></a>
+                                </td>
+                                {% else %}
+                                No Submission
+                                {% endif %}
+                                {% endfor %}
+
+                                {% else %}
+                                No Attempt
+                                {% endif %}
+
+                            </tr>
+                            <tr>
+                                <td class="col-2">Time remaining</td>
+                                {% for submit in submits %}
+                                {% if submit.timestamp < submit.submission_title.duedate %}
+                                <td style="background-color: rgb(134, 248, 172);">
+                                    <small>
+                                        {{ submit.timestamp|timesince:submit.submission_title.duedate }} early before
+                                        duedate
+                                    </small>
+                                </td>
+
+                                {% else %}
+                                <td style="background-color: rgb(223, 151, 157);">
+                                    <small>
+                                        {{ submit.submission_title.duedate|timesince:submit.timestamp }} late in duedate
+                                    </small>
+                                </td>
+                                {% endif %}
+
+
+
+                                {% endfor %}
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="col-2">Date Submitted</td>
+                                <td>
+                                    {% for submit in submits %}
+
+                                    {{ submit.timestamp }}
+                                    {% endfor %}
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="col-2">Last Modified</td>
+                                {% for submit in submits %}
+                                <td>{{ submit.updated_at }}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="col-2">File/Text Submitted</td>
+                                <td>
+                                    {% for submit in submits %}
+
+                                    {% if submit.submit_content %}
+                                    {{ submit.submit_content }}
+                                    {% endif %}
+                                    {% if submit.pdf_submit %}
+                                    <br>
+
+                                    <a href="{{ submit.pdf_submit.url }}" target="_blank">{{ submit.filename }}</a>
+                                    {% endif %}
+                                    {% endfor %}
+                                <td></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+                    <div class="container-fluid" style="display: flex; justify-content: center">
+                        {% if submits %}
+                        {% for submit in submits %}
+
+
+                        <a href="/submissions-form/{{ submit.id }}/edit/">
+                            <button name="edit" type="submit" class="btn btn-success" value="1">
+                                Edit/Remove Submission
+                            </button>
+                        </a>
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+
+                {% else %}
+                <a href="{% url 'submission-form' postsub.id %}">
+                    <button class="btn btn-primary">
+                        Create Submissions
+                    </button>
+                </a>
+                {% endif %}
+
+                <br>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+{#    FOR ADDING ACTIVE STATE IN NAVBAR#}
+<script>
+    var d = document.getElementById("submissions-nav");
+    d.className += " active";
+</script>
+
+
+
+
+{% endblock %}

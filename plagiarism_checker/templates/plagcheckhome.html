@@ -1,0 +1,287 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+Plagiarism Checker
+{% endblock %}
+
+{% block style %}
+
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+    .highlight {
+        background-color: yellow;
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox-content m-b-sm border-bottom" style="margin-top: 5px">
+            <div class="row">
+                <div class="col-1">
+                    <div class=" pull-left m-r-md">
+                        <i class="fas fa-check-double text-navy mid-icon"> </i>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <h2>Plagiarism Checker </h2>
+                    <span>To use this tool online, copy-paste text or select a file to upload. Next, click on the Check
+                        Plagiarism button to find plagiarism percentage.</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <form method="post">
+                {% csrf_token %}
+                <div>
+                    <textarea class="form-control border-secondary" id="plagtextarea" name="plagtextarea" rows="6"
+                        placeholder="Paste text here"></textarea>
+                </div>
+
+                <div>
+                    <label for="formFile" class="form-label">or upload .pdf file here</label>
+                    <input class="form-control" type="file" id="formFile" name="formFile"
+                        formenctype="multipart/form-data" accept="application/pdf">
+                </div>
+
+                <div style="text-align: center">
+                    <br>
+                    <button type="submit" class="btn btn-success">Check for Plagiarism
+                    </button>
+                    <br>
+                    <span><i>Checking for plagiarism may take a while, please wait for the page to load.</i></span> <br>
+                    <span><i>One sentence = one query.</i></span>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% if loaded_data %}
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom" style="margin-top: 5px">
+
+
+            <div class="row">
+                <div class="col" style="display: flex; justify-content: right">
+                    <canvas id="plagpercent" height="200"></canvas>
+
+                </div>
+                <div class="col" style="display: flex; justify-content: left">
+                    <div style="align-self: center">
+                        <h3 style="color: #41af92">{{ loaded_data.uniquePercent }}% Unique Content</h3>
+                        <h3 style="color: #d24c4c">{{ loaded_data.plagPercent }}% Plagiarized Content</h3>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <h3>Query</h3>
+            {{ query }}
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <h3>Details</h3>
+            <div class="row ">
+                <div class="table-responsive">
+                    {% for details in loaded_data.details %}
+
+                    <table class="table caption-top">
+                        <caption class="h5">Query: {{ details.query }}</caption>
+                        <thead>
+                            <th>Website</th>
+                            <th>URL</th>
+                        </thead>
+                        <tbody>
+                            {% if details.webs %}
+                            {% for detail in details.webs %}
+                            <tr>
+                                <td class="col-6">
+                                    {#                                        {{ detail.webs }}#}
+                                    {{ detail.title }}
+                                </td>
+                                <td>
+                                    <a href="{{ detail.url }}" target="_blank">{{ detail.url }}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else  %}
+                            <tr>
+                                <td colspan="2" style="text-align: center">
+                                    Query is unique
+                                </td>
+                            </tr>
+
+                            {% endif %}
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <hr>
+                    <br>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+
+{% endblock %}
+
+{% block js %}
+
+
+<script>
+    var d = document.getElementById("plagiarism-nav");
+    d.className += " active";
+</script>
+<script src="{% static 'main/js/Chart.min.js' %}" crossorigin="anonymous"></script>
+
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Pie Chart Example
+    var ctx = document.getElementById("plagpercent");
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Unique Content', 'Plagiarized Content'],
+            datasets: [{
+                data: [{{ loaded_data.uniquePercent }}, {{ loaded_data.plagPercent }}],
+        backgroundColor: ['#41af92', '#d24c4c'],
+    }],
+            },
+    options: {
+        responsive: false,
+            legend: {
+            display: false,
+                }
+    }
+        });
+
+</script>
+
+
+{% endblock %}

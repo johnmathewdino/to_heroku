@@ -1,0 +1,67 @@
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                {#                <div class="sb-sidenav-menu-heading">Dashboard</div>#}
+                <a class="nav-link" id="dashboard-nav" href="{% url 'student_home' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                    Dashboard
+                </a>
+                {#                <div class="sb-sidenav-menu-heading">User Management</div>#}
+
+                {#                <div class="sb-sidenav-menu-heading">Tools</div>#}
+                <a class="nav-link" id="guide-nav" href="{% url 'guide' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-align-left"></i></div>
+                    Capstone Guides
+                </a>
+
+
+                <a class="nav-link" id="group-member-nav" href="{% url 'Group' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+                    Group Members
+                </a>
+                <a class="nav-link" id="title-nav" href="{% url 'Student_Title' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-scroll"></i></div>
+                    Proposed Title
+                </a>
+                <a class="nav-link" id="adpan-nav" href="{% url 'StudentAdviserAndPanelistView' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                    Adviser & Panelists Selection
+                </a>
+
+
+
+                <a class="nav-link" id="submissions-nav" href="{% url 'submissions' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-paperclip"></i></div>
+                    Activities
+                </a>
+                 <a class="nav-link" id="evaluation-nav" href="{% url 'Student Schedule' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
+                    Scheduler
+                </a>
+                <a class="nav-link" id="manuscripteval-nav" href="{% url 'Student Evaluation' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-balance-scale"></i></div>
+                    Manuscript Evaluation
+                </a>
+                <a class="nav-link" id="forum-nav" href="{% url 'topic' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                    Forum
+                </a>
+                <a class="nav-link" id="plagiarism-nav" href="{% url 'plagcheck' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-check-double"></i></div>
+                    Plagiarism Checker
+                </a>
+                <hr>
+                <a class="nav-link" id="feedback-nav" href="{% url 'StudentFeedback' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-bug"></i></div>
+                    Feedback
+                </a>
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small" style="color: white">Logged in as:</div>
+            <span style="color: white">{{ name }} - Student</span>
+        </div>
+    </nav>
+</div>
+

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edit
+{% endblock %}
+{% block style %}
+    <style>
+        .card {
+            margin: 0 auto; /* Added */
+            float: none; /* Added */
+            margin-bottom: 10px; /* Added */
+        }</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid" style="margin-top: 10%">
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <div class="card  border-dark">
+                <div class="card-header">
+                    Edit Announcement
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="card-body">
+                        {{ form | crispy }}
+                    </div>
+                    <div class="card-footer" style="text-align: center">
+                        <button name="update" type="submit" class="btn btn-primary" value="1">Update</button>
+                        <button name="delete" type="submit" class="btn btn-danger" value="1">Delete</button>
+                        <button name="back" type="submit" class="btn btn-secondary" value="1">Back</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

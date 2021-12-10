@@ -1,0 +1,349 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Group Proposal
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        .mid-icon {
+            font-size: 66px;
+        }
+
+        .forum-item {
+            margin: 10px 0;
+            padding: 10px 0 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .views-number {
+            font-size: 24px;
+            line-height: 18px;
+            font-weight: 400;
+        }
+
+        .forum-container,
+        .forum-item small {
+            color: #999;
+        }
+
+        .forum-item .forum-sub-title {
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .forum-info {
+            text-align: center;
+        }
+
+        .forum-icon {
+            float: left;
+            width: 30px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        a.forum-item-title {
+            color: inherit;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        a.forum-item-title:hover {
+            color: inherit;
+        }
+
+        .forum-item.active a.forum-item-title {
+            color: #1ab394;
+        }
+
+        @media (max-width: 992px) {
+            .forum-info {
+                margin: 15px 0 10px 0;
+                /* Comment this is you want to show forum info in small devices */
+                display: none;
+            }
+
+            .forum-desc {
+                float: none !important;
+            }
+        }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+
+        .text-navy {
+            color: #1ab394;
+        }
+
+        .mid-icon {
+            font-size: 66px !important;
+        }
+
+        .m-b-sm {
+            margin-bottom: 10px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+                    <div class="ibox-content m-b-sm border-bottom">
+                        <div class="row">
+                            <div class="col-1" style="margin-right: 25px">
+                                <div class=" pull-left m-r-md">
+                                    <i class="fa fa-comments text-navy mid-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h2>Group Selection</h2>
+                                <span>insert text here</span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox-content m-b-sm border-bottom">
+
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+
+                        {% elif message.tags == 'error' %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if groups %}
+
+                <div class="card border-light">
+
+                    <h5 class="card-header">{{ group.groupname}}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                        <tr>
+                            <th scope="col">First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for group in groups %}
+                        <tr>
+                            <td>{{ group.mem1.first_name }}</td>
+                            <td>{{ group.mem1.last_name }}</td>
+                            <td>{{ group.mem1.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ group.mem2.first_name }}</td>
+                            <td>{{ group.mem2.last_name }}</td>
+                            <td>{{ group.mem2.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ group.mem3.first_name }}</td>
+                            <td>{{ group.mem3.last_name }}</td>
+                            <td>{{ group.mem3.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ group.mem4.first_name }}</td>
+                            <td>{{ group.mem4.last_name }}</td>
+                            <td>{{ group.mem4.email }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="display: flex; justify-content: center">
+                        {% if group.mem1 == None or group.mem1 == "" %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#groupmembers">
+                            Input Group Members
+                        </button>
+                        {% else %}
+                        <a href="{% url 'Edit Group' group.id %}" class="btn btn-primary">Edit Group</a>
+                        {% endif %}
+                    </div>
+                    <!-- Button trigger modal -->
+
+
+                </div>
+
+                <div class="card-footer text-muted" style="font-size: small">
+                    Created on: {{group.created_at}}<br>
+
+                    Modified on: {{group.updated_at}}
+
+                </div>
+                    {% endfor %}
+            {% else %}
+
+                     <div class="card border-light">
+
+                    <h5 class="card-header"></h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                        <tr>
+                            <th scope="col">First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="3" class="text-center">No members yet</td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div style="display: flex; justify-content: center">
+
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#groupmembers">
+                            Input Group Members
+                        </button>
+                    </div>
+                    <!-- Button trigger modal -->
+
+
+                </div>
+
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="groupmembers" tabindex="-1" aria-labelledby="groupmembersLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="groupmembersLabel">Group Members</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+
+
+                        <label for="groupmem1" class="form-label">Group Member #1</label>
+                        <input class="form-control" id="groupmem1" name="groupmem1"
+                               placeholder="Type to search..." value="{{ name }}" disabled>
+
+                        <br>
+
+                        <label for="groupmem2" class="form-label">Group Member #2</label>
+                        <select class="form-select" id="groupmem2" name="groupmem2" required>
+                            <option selected value="" disabled>Click to select user</option>
+                            {% for name in names %}
+                                {% if name.mem1 == None %}
+                                <option value="{{ name.user.id }}">{{ name.user.get_full_name }}</option>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </select>
+
+
+                        <br>
+
+
+                        <label for="groupmem3" class="form-label">Group Member #3</label>
+                        <select class="form-select" id="groupmem3" name="groupmem3" required>
+                            <option selected value="" disabled>Click to select user</option>
+                            {% for name in names %}
+                                {% if name.mem1 == None %}
+                                <option value="{{ name.user.id }}">{{ name.user.get_full_name }}</option>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </select>
+
+                        <br>
+
+
+                        <label for="groupmem4" class="form-label">Group Member #4</label>
+                        <select class="form-select" id="groupmem4" name="groupmem4" required>
+                            <option selected value="" disabled>Click to select user</option>
+                            {% for name in names %}
+                                {% if name.mem1 == None %}
+                                <option value="{{ name.user.id }}">{{ name.user.get_full_name }}</option>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </select>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block js %}
+
+    <script>
+        var d = document.getElementById("group-member-nav");
+        d.className += " active";
+    </script>
+
+
+
+
+{% endblock %}

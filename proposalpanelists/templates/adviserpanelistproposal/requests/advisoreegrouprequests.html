@@ -1,0 +1,456 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Adviser and Panelist Selection
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                {#HEADER TITLE#}
+                <div class="ibox-content m-b-sm border-bottom">
+
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 25px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fas fa-user-tie text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <h2>Adviser and Panelists Selection</h2>
+                            <span>Your Advisoree Group Requests</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% elif message.tags == 'error' %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <h4 style="text-align: center">Adviser and Panelists</h4>
+            <br>
+
+            <table class="table table-responsive">
+
+                <tbody>
+                    <tr>
+                        <th class="col-1"></th>
+                        <th class="col-3">Final Title</th>
+                        <td>
+                            {% if UserInfo.group_title != "" %}
+                            {{ UserInfo.group_title }}
+                            {% else %}
+                            <i>No Information Yet</i>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="col-1"></th>
+                        <th class="col-3">Adviser</th>
+                        <td>
+                            {% if UserInfo.group_adviser != None %}
+                            Prof. {{ UserInfo.group_adviser.get_full_name }}
+                            {% else %}
+                            <i>No Information Yet</i>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="col-1"></th>
+                        <th class="col-3">Panelist #1 (Chairman)</th>
+                        <td>
+                            {% if UserInfo.group_panel_1 != None %}
+                            Prof. {{ UserInfo.group_panel_1.get_full_name }}
+                            {% else %}
+                            <i>No Information Yet</i>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="col-1"></th>
+                        <th class="col-3">Panelist #2</th>
+                        <td>
+                            {% if UserInfo.group_panel_2 != None %}
+                            Prof. {{ UserInfo.group_panel_2.get_full_name }}
+                            {% else %}
+                            <i>No Information Yet</i>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="col-1"></th>
+                        <th class="col-3">Panelist #3</th>
+                        <td>
+                            {% if UserInfo.group_panel_3 != None %}
+                            Prof. {{ UserInfo.group_panel_3.get_full_name }}
+                            {% else %}
+                            <i>No Information Yet</i>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+
+            <h3 style="text-align: center">Requests for Adviser</h3>
+
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if adviserrequests %}
+
+                    {% for adrequest in adviserrequests %}
+                    <tr>
+                        <td class="col-6">Prof. {{ adrequest.name.get_full_name }}</td>
+
+                        {% if adrequest.status == 'pending' %}
+                        <td>Request Pending</td>
+                        {% elif adrequest.status == 'accepted' %}
+                        <td style="color: forestgreen">Accepted</td>
+                        {% elif adrequest.status == 'decline' %}
+                        <td style="color: red">Declined</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+
+                    {% else %}
+                    <td colspan="2" style="text-align: center">No requests yet</td>
+                    {% endif %}
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+
+            <h3 style="text-align: center">Requests for Panelist #1 (Chairman)</h3>
+
+
+           
+
+
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if panel1requests %}
+
+                    {% for panel1request in panel1requests %}
+                    <tr>
+                        <td class="col-6">Prof. {{ panel1request.name.get_full_name }}</td>
+
+                        {% if panel1request.status == 'pending' %}
+                        <td>Request Pending</td>
+                        {% elif panel1request.status == 'accepted' %}
+                        <td style="color: forestgreen">Accepted</td>
+                        {% elif panel1request.status == 'decline' %}
+                        <td style="color: red">Declined</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+
+                    {% else %}
+                    <td colspan="2" style="text-align: center">No requests yet</td>
+                    {% endif %}
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+
+            <h3 style="text-align: center">Requests for Panelist #2</h3>
+
+
+            
+
+
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if panel2requests %}
+
+                    {% for panel2request in panel2requests %}
+                    <tr>
+                        <td class="col-6">Prof. {{ panel2request.name.get_full_name }}</td>
+
+                        {% if panel2request.status == 'pending' %}
+                        <td>Request Pending</td>
+                        {% elif panel2request.status == 'accepted' %}
+                        <td style="color: forestgreen">Accepted</td>
+                        {% elif panel2request.status == 'decline' %}
+                        <td style="color: red">Declined</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+
+                    {% else %}
+                    <td colspan="2" style="text-align: center">No requests yet</td>
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+
+            <h3 style="text-align: center">Requests for Panelists #3</h3>
+
+
+            
+
+
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if panel3requests %}
+
+                    {% for panel3request in panel3requests %}
+                    <tr>
+                        <td class="col-6">Prof. {{ panel3request.name.get_full_name }}</td>
+
+                        {% if panel3request.status == 'pending' %}
+                        <td>Request Pending</td>
+                        {% elif panel3request.status == 'accepted' %}
+                        <td style="color: forestgreen">Accepted</td>
+                        {% elif panel3request.status == 'decline' %}
+                        <td style="color: red">Declined</td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+
+
+                    {% else %}
+                    <td colspan="2" style="text-align: center">No requests yet</td>
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#edittitle").click(function () {
+            if ($(this).is(":checked")) {
+                $("#dvtitle").show();
+            } else {
+                $("#dvtitle").hide();
+            }
+        });
+    });
+</script>
+
+<script>
+    var d = document.getElementById("adpan-nav");
+    d.className += " active";
+</script>
+{% endblock %}

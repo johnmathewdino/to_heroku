@@ -1,0 +1,247 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Edit Adviser and Panelist Selection
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            margin-top: 20px;
+            background: #eee;
+        }
+
+        .mid-icon {
+            font-size: 66px;
+        }
+
+        .forum-item {
+            margin: 10px 0;
+            padding: 10px 0 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .views-number {
+            font-size: 24px;
+            line-height: 18px;
+            font-weight: 400;
+        }
+
+        .forum-container,
+        .forum-item small {
+            color: #999;
+        }
+
+        .forum-item .forum-sub-title {
+            color: #999;
+            margin-left: 10px;
+        }
+
+        .forum-info {
+            text-align: center;
+        }
+
+        .forum-icon {
+            float: left;
+            width: 30px;
+            margin-right: 20px;
+            text-align: center;
+        }
+
+        a.forum-item-title {
+            color: inherit;
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        a.forum-item-title:hover {
+            color: inherit;
+        }
+
+        .forum-item.active a.forum-item-title {
+            color: #1ab394;
+        }
+
+        @media (max-width: 992px) {
+            .forum-info {
+                margin: 15px 0 10px 0;
+                /* Comment this is you want to show forum info in small devices */
+                display: none;
+            }
+
+            .forum-desc {
+                float: none !important;
+            }
+        }
+
+        .ibox.collapsed .ibox-content {
+            display: none;
+        }
+
+        .ibox-content {
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+
+        .text-navy {
+            color: #1ab394;
+        }
+
+        .mid-icon {
+            font-size: 66px !important;
+        }
+
+        .m-b-sm {
+            margin-bottom: 10px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                    {#HEADER TITLE#}
+                    <div class="ibox-content m-b-sm border-bottom">
+
+                        <div class="row">
+                            <div class="col-1" style="margin-right: 25px">
+                                <div class=" pull-left m-r-md">
+                                    <i class="fas fa-user-tie text-navy mid-icon"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <h2>Adviser and Panelists Selection</h2>
+                                <span>Select your adviser here together with your final title and panelists</span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+
+
+
+
+        <div class="container">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                <div class="ibox-content m-b-sm border-bottom">
+                    <h5>Select your Adviser and Panelists</h5>
+                    <form method="post" class="needs-validation">
+                        {% csrf_token %}
+                        <label for="adviser">Select Adviser: </label>
+                        <select class="form-select" id="adviser" name="adviser" required>
+                            <option selected disabled value="">Select Adviser</option>
+                            {% for adviser in users %}
+                                <option value="{{ adviser.id }}">{{ adviser.user.get_full_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+
+                        <label for="title">Select Proposed Title</label>
+                        <select class="form-select" aria-label="Default select example" id="title" name="title"
+                                required>
+                            <option selected disabled value="">Select Proposed Title</option>
+                            {% for title in titles %}
+                                <option value="{{ title.title }}">{{ title.title }}</option>
+                            {% endfor %}
+                        </select>
+
+
+                        <div class="form-check">
+
+                            <label for="edittitle" class="form-check-label">
+                                <input type="checkbox" id="edittitle" class="form-check-input">
+                                <i>Is there revision to the proposed title? </i>
+                            </label>
+
+                            <div id="dvtitle" style="display: none">
+                                <label for="newtitle" class="form-label"></label>
+                                Final Title:
+                                <input type="text" id="newtitle" name="newtitle" class="form-control">
+                            </div>
+                        </div>
+
+
+                        <label for="panel1">Panel 1</label>
+                        <select class="form-select" aria-label="Default select example" id="panel1" name="panel1"
+                                required>
+                            <option selected disabled value="">Select panel</option>
+                            {% for panel1 in users %}
+                                <option value="{{ panel1.id }}">{{ panel1.user.get_full_name  }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+
+                        <label for="panel2">Panel 2</label>
+                        <select class="form-select" aria-label="Default select example" id="panel2" name="panel2"
+                                required>
+                            <option selected disabled value="">Select panel</option>
+                            {% for panel2 in users %}
+                                <option value="{{ panel2.id }}">{{ panel2.user.get_full_name  }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+
+                        <label for="panel3">Panel 3</label>
+                        <select class="form-select" aria-label="Default select example" id="panel3" name="panel3"
+                                required>
+                            <option selected disabled value="">Select panel</option>
+                            {% for panel3 in users %}
+                                <option value="{{ panel3.id }}">{{ panel3.user.get_full_name  }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+
+                        <div class="container-fluid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#edittitle").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvtitle").show();
+                } else {
+                    $("#dvtitle").hide();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var d = document.getElementById("adpan-nav");
+        d.className += " active";
+    </script>
+{% endblock %}

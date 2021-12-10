@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>
+        {% block title %}
+            Dashboard - SB Admin
+        {% endblock %}
+    </title>
+
+
+    {#    <link href="{% static ' main/css/dist-style.css' %}" rel="stylesheet"/>#}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link href="{% static 'main/css/styles.css' %}" rel="stylesheet"/>
+    <link rel="icon" href="{% static 'main/image/SSU-logo.png' %}">
+    {% block style %}
+
+    {% endblock %}
+    <style>
+        .iconup {
+            color: white;
+
+        }
+
+        .iconup:hover {
+            color: #757575;
+        }
+
+        .test {
+
+        }
+    </style>
+
+
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+
+    <a class="navbar-brand ps-3"
+
+
+            {% if userrole == "1" %}
+       href="{% url 'dean_home' %}"
+            {% elif userrole == "2" %}
+       href="{% url 'cp_home' %}"
+            {% elif userrole == "3" %}
+       href="{% url 'faculty_home' %}"
+            {% elif userrole == "4" %}
+       href="{% url 'student_home' %}"
+            {% endif %}
+
+
+
+
+    ><img src="{% static 'main/image/SSU-logo.png' %}" alt="SSULogo" height="40px">
+        SorSU-CaPSys</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+            class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        {#        <div class="input-group">#}
+        {#            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."#}
+        {#                   aria-describedby="btnNavbarSearch"/>#}
+        {#            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>#}
+        {#        </div>#}
+    </form>
+    <!-- Navbar-->
+    {#    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">#}
+
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item">
+            {% if resuser.is_superuser or resuser.is_staff %}
+                <button class="nav-item btn btn-secondary"><b><a href="/admin/"
+                                                                 style="text-decoration: none; color: white">Admin Site</a></b></button>
+            {% endif %}
+        </li>
+
+
+{#    CHAT APP#}
+{#        <li class="nav-item" style="color: white">#}
+{#            <div>#}
+{#                <a href="" class="nav-link">#}
+{#                <i class="iconup far fa-comment-dots iconup"#}
+{#                                            style="font-size: 30px; margin-left: 10px;">#}
+{##}
+{#                </i>#}
+{#                    {% if unseen != 0 %}#}
+{#                    <span class="position-absolute top-3 start-60 translate-middle badge rounded-pill bg-danger">#}
+{#                        {{ unseen }}#}
+{#                        <span class="visually-hidden">unread messages</span>#}
+{#                    </span>#}
+{#                    {% endif %}#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{##}
+{#        </li>#}
+
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false"><i class="iconup fas fa-user fa-fw iconup" style="font-size: 30px; "></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+    {#    </form>#}
+
+</nav>
+
+<div id="layoutSidenav">
+    {% if userrole == "1" %}
+        {% include 'main/dean/dean_nav.html' %}
+    {% elif userrole == "2" %}
+        {% include 'main/cp/cp_nav.html' %}
+    {% elif userrole == "3" %}
+        {% include 'main/faculty/faculty_nav.html' %}
+    {% elif userrole == "4" %}
+        {% include 'main/student/student_nav.html' %}
+
+    {% else %}
+
+
+    {% endif %}
+
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </main>
+
+    </div>
+</div>
+<script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"
+        crossorigin="anonymous"></script>
+<script src="{% static 'main/js/scripts.js' %}"></script>
+<script src="{% static 'main/js/all.min.js' %}"
+        crossorigin="anonymous"></script>
+
+
+{% block js %}
+{% endblock %}
+</body>
+</html>

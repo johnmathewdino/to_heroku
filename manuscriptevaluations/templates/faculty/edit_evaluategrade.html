@@ -1,0 +1,170 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Evaluate
+{% endblock %}
+
+{% block style %}
+<style>
+  body {
+    margin-top: 20px;
+    background: #eee;
+  }
+
+  .mid-icon {
+    font-size: 66px;
+  }
+
+  .forum-item {
+    margin: 10px 0;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .views-number {
+    font-size: 24px;
+    line-height: 18px;
+    font-weight: 400;
+  }
+
+  .forum-container,
+  .forum-item small {
+    color: #999;
+  }
+
+  .forum-item .forum-sub-title {
+    color: #999;
+    margin-left: 10px;
+  }
+
+  .forum-info {
+    text-align: center;
+  }
+
+  .forum-icon {
+    float: left;
+    width: 30px;
+    margin-right: 20px;
+    text-align: center;
+  }
+
+  a.forum-item-title {
+    color: inherit;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  a.forum-item-title:hover {
+    color: inherit;
+  }
+
+  .forum-item.active a.forum-item-title {
+    color: #1ab394;
+  }
+
+  @media (max-width: 992px) {
+    .forum-info {
+      margin: 15px 0 10px 0;
+      /* Comment this is you want to show forum info in small devices */
+      display: none;
+    }
+
+    .forum-desc {
+      float: none !important;
+    }
+  }
+
+  .ibox.collapsed .ibox-content {
+    display: none;
+  }
+
+  .ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+  }
+
+  .text-navy {
+    color: #1ab394;
+  }
+
+  .mid-icon {
+    font-size: 66px !important;
+  }
+
+  .m-b-sm {
+    margin-bottom: 10px;
+  }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        {#HEADER TITLE#}
+        <div class="ibox-content m-b-sm border-bottom">
+          <div class="row">
+            <div class="col-1" style="margin-right: 25px">
+              <div class=" pull-left m-r-md">
+                <i class="fa fa-balance-scale text-navy mid-icon"></i>
+              </div>
+            </div>
+            <div class="col-10">
+
+              <h2>{{eval_grade.student_submission.submission_title}}</h2>
+              <span>{{eval_grade.student_submission.user.get_full_name}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <br>
+
+      <form method="POST">
+        {% csrf_token %}
+        {% if eval_grade.student_submission.eval_grade_submit == "N" %}
+        
+        <label for="">Input Numeric Grade: </label>
+        <input type="number" value="{{eval_grade.N}}" name="N"> &nbsp;
+        
+        {% elif eval_grade.student_submission.eval_grade_submit == "PF" %}
+        
+        <input type="radio" id="P" name="PF" value="Passed" class="form-check-input" {% if eval_grade.PF == "Passed" %}  checked {% endif %}>
+        <label class="form-check-label" for="P" >Passed</label>
+        
+        <input type="radio" id="F" name="PF" value="Failed" class="form-check-input" {% if eval_grade.PF == "Failed" %} checked {% endif %} >
+        <label class="form-check-label" for="F">Failed</label> &nbsp;
+
+        
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button href="{% url 'Faculty Evaluate' eval_grade.student_submission.id %}" class="btn btn-secondary">Close</button>
+      </form>
+
+
+    </div>
+  </div>
+
+
+  {% endblock %}
+
+  {% block js %}
+  <script>
+    var d = document.getElementById("manuscripteval-nav");
+    d.className += " active";
+  </script>
+
+  {% endblock %}

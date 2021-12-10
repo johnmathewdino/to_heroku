@@ -1,0 +1,327 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Title Proposal
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                {#HEADER TITLE#}
+                <div class="ibox-content m-b-sm border-bottom">
+
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 25px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fas fa-scroll text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <h2>Proposed Title</h2>
+                            <span>Propose titles here and await comments or approval</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# /Header title #}
+
+
+
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% elif message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+
+
+{# Content #}
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <div class="ibox-content forum-container">
+                    <div class="container">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.title | as_crispy_field }}
+
+                            <div id="div_id_description" class="form-group">
+                                <label for="id_description" class=" requiredField">
+                                    Description
+                                    <span class="asteriskField">
+                                        *
+                                    </span>
+                                </label>
+                                <div class="">
+                                    <textarea name="description" cols="40" rows="10" class="textarea form-control"
+                                        required="" id="id_description" spellcheck="false"
+                                        style="margin-top: 0px; margin-bottom: 0px; height: 108px;"></textarea>
+                                </div>
+                            </div>
+                            <div style="display: flex;justify-content: center">
+                                <button class="btn btn-primary" type="submit" style="margin-top: 10px">Propose
+                                    Title
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    {# /Content #}
+
+</div>
+<br>
+
+
+
+
+<div class="container">
+    <div class="ibox-content forum-container">
+        <div style="display: flex; justify-content: center">
+            <h4>PROPOSED TITLES</h4>
+            <br>
+            <br>
+        </div>
+        {% for titles in titlelist %}
+        
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-11">
+                        <div class="d-flex">
+                            <img src="{{ titles.user.userprofile.image.url }}" class="me-3 rounded-circle"
+                                style="width: 50px; height: 50px">
+                            <div>
+                                <a href="{% url 'StudentTitleComment' titles.id %}" style="text-decoration: none">
+
+                                    <h5 class="fw-bold">
+                                        {{ titles.title | title }}
+                                    </h5>
+                                </a>
+
+                                <small class="text-muted">Posted by {{ titles.user.get_full_name | title }}
+                                    on {{ titles.created_at }}
+
+                                    {% if titles.created_at != titles.updated_at %}
+                                    Modified on {{ titles.updated_at }}
+                                    {% endif %}
+
+                                </small>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% if titles.status != "Accepted" %}
+                    <div class="col-1">
+                        <a href="{% url 'edit_title' titles.id %}" style="text-decoration: none">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if titles.edited != None %}
+                    <div class="col-2">
+                        <br>
+                        <h6 style="color: rgb(13, 145, 35);">{{ titles.edited}}</h6>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="card-body">
+                {{ titles.description }}
+            </div>
+
+
+
+
+
+
+            {% if titles.status == "Accepted" %}
+            <div class="card-footer" style="background: #0dcaf0">
+
+                Title Status: {{ titles.status }}
+            </div>
+            {% elif titles.status == "Rejected" %}
+            <div class="card-footer" style="background: #ea9799">
+
+                Title Status: {{ titles.status }}
+            </div>
+            {% elif titles.status == "Title Needs Clarifications" %}
+            <div class="card-footer" style="background: #b7b1b1">
+
+                Title Status: {{ titles.status }}
+            </div>
+
+            {% else %}
+            <div class="card-footer">
+                Title Status: Title proposed <small><i>await approval</i></small>
+            </div>
+
+
+            {% endif %}
+        </div>
+        <br>
+        
+        {% endfor %}
+    </div>
+</div>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    var d = document.getElementById("title-nav");
+    d.className += " active";
+</script>
+{% endblock %}

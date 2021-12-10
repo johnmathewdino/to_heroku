@@ -1,0 +1,393 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Adviser and Panelist Selection
+{% endblock %}
+
+{% block style %}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .mid-icon {
+        font-size: 66px;
+    }
+
+    .forum-item {
+        margin: 10px 0;
+        padding: 10px 0 20px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .views-number {
+        font-size: 24px;
+        line-height: 18px;
+        font-weight: 400;
+    }
+
+    .forum-container,
+    .forum-item small {
+        color: #999;
+    }
+
+    .forum-item .forum-sub-title {
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .forum-info {
+        text-align: center;
+    }
+
+    .forum-icon {
+        float: left;
+        width: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    a.forum-item-title {
+        color: inherit;
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    a.forum-item-title:hover {
+        color: inherit;
+    }
+
+    .forum-item.active a.forum-item-title {
+        color: #1ab394;
+    }
+
+    @media (max-width: 992px) {
+        .forum-info {
+            margin: 15px 0 10px 0;
+            /* Comment this is you want to show forum info in small devices */
+            display: none;
+        }
+
+        .forum-desc {
+            float: none !important;
+        }
+    }
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox-content {
+        background-color: #ffffff;
+        color: inherit;
+        padding: 15px 20px 20px 20px;
+        border-color: #e7eaec;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .text-navy {
+        color: #1ab394;
+    }
+
+    .mid-icon {
+        font-size: 66px !important;
+    }
+
+    .m-b-sm {
+        margin-bottom: 10px;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                {#HEADER TITLE#}
+                <div class="ibox-content m-b-sm border-bottom">
+
+                    <div class="row">
+                        <div class="col-1" style="margin-right: 25px">
+                            <div class=" pull-left m-r-md">
+                                <i class="fas fa-user-tie text-navy mid-icon"></i>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <h2>Adviser and Panelists Selection</h2>
+                            <span>Groups that selected you as an adviser and panelists are posted here</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <a href="{% url 'faculty_student_request' %}" style="text-decoration: none">
+                <h5>View students' requests
+                    {% if pendingrequests != 0 %}
+                    <span class="badge bg-danger">{{ pendingrequests }}</span>
+                    {% endif %}
+                    <i class="fas fa-arrow-right"></i>
+                </h5>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#filter").change(function () {
+            if ($(this).val() === "adviser") {
+                $("#adviser").show();
+                $("#panel").hide();
+            } else if ($(this).val() === "panelist") {
+                $("#adviser").hide();
+                $("#panel").show();
+            } else {
+                $("#adviser").show();
+                $("#panel").show();
+            }
+
+        });
+    });
+</script>
+
+<div class="container">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <span>Filter groups chosen as: </span>
+            <select name="filter" id="filter" onchange="ShowHideDiv()">
+                <option value="none">None</option>
+                <option value="adviser">Adviser</option>
+                <option value="panelist">Panelist</option>
+            </select>
+
+        </div>
+    </div>
+</div>
+
+<div class="container" id="adviser">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+
+
+
+            <h5>Groups that selected you as Adviser</h5>
+            <br>
+            {% for l in adviserlists %}
+            
+
+            
+            <div class="card">
+                
+                <div class="card-header">
+                    
+                    <h5>{{ l.user.userprofile.group_title }}'s Group</h5>
+                    <p>{{ l.user.get_full_name }}'s Group</h6>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+
+                        <tbody>
+                            {% if l.final_title != "" %}
+                            <tr>
+                                <td class="col-2">Proposed Title</td>
+                                <td>{{ l.proposed_title }}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-2">Final Title</td>
+                                <td>{{ l.final_title }}</td>
+                            </tr>
+
+                            {% else %}
+                            <tr>
+                                <td class="col-2">Final Title</td>
+                                <td>{{ l.proposed_title }}</td>
+                            </tr>
+
+                            {% endif %}
+
+                            <tr>
+                                {% if name == l.adviser.user.get_full_name %}
+                                <td style="background: #9deedb">Adviser</td>
+                                <td style="background: #9deedb; ">{{ l.adviser.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Adviser</td>
+                                <td>{{ l.adviser.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel1.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #1</td>
+                                <td style="background: #9deedb">{{ l.panel1.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #1</td>
+                                <td>{{ l.panel1.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel2.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #2</td>
+                                <td style="background: #9deedb">{{ l.panel2.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #2</td>
+                                <td>{{ l.panel2.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel3.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #3</td>
+                                <td style="background: #9deedb">{{ l.panel3.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #3</td>
+                                <td>{{ l.panel3.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Created on: {{ l.created_at }}</small>
+                    <br>
+                    {% if l.created_at != l.updated_at %}
+                    <small class="text-muted">Updated on: {{ l.updated_at }}</small>
+                    {% endif %}
+                    <div style="display: flex; text-align: right; justify-content: right;">
+                        <h6><a href="{% url 'AdviserViewRequestsOfAdvisoree' l.user.id %}" style="text-decoration: none"><strong>View
+                                    Advisoree Group Requests </strong><i class="fas fa-arrow-right"></i></a></h6>
+                    </div>
+                </div>
+
+            </div>
+            
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container" id="panel">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <h5>Groups that selected you as Panelist</h5>
+            <br>
+
+            {% for l in panelistlists %}
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ l.user.userprofile.group_title }}</h5>
+                    <p>{{ l.user.get_full_name}}'s Group</p>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+
+                        <tbody>
+                            {% if l.final_title != "" %}
+                            <tr>
+                                <td class="col-2">Proposed Title</td>
+                                <td>{{ l.proposed_title }}</td>
+                            </tr>
+                            <tr>
+                                <td class="col-2">Final Title</td>
+                                <td>{{ l.final_title }}</td>
+                            </tr>
+
+                            {% else %}
+                            <tr>
+                                <td class="col-2">Final Title</td>
+                                <td>{{ l.proposed_title }}</td>
+                            </tr>
+
+                            {% endif %}
+
+                            <tr>
+                                {% if name == l.adviser.user.get_full_name %}
+                                <td style="background: #9deedb">Adviser</td>
+                                <td style="background: #9deedb; ">{{ l.adviser.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Adviser</td>
+                                <td>{{ l.adviser.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel1.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #1</td>
+                                <td style="background: #9deedb">{{ l.panel1.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #1</td>
+                                <td>{{ l.panel1.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel2.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #2</td>
+                                <td style="background: #9deedb">{{ l.panel2.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #2</td>
+                                <td>{{ l.panel2.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if name == l.panel3.user.get_full_name %}
+                                <td style="background: #9deedb">Panelist #3</td>
+                                <td style="background: #9deedb">{{ l.panel3.user.get_full_name }}</td>
+                                {% else %}
+                                <td>Panelist #3</td>
+                                <td>{{ l.panel3.user.get_full_name }}</td>
+                                {% endif %}
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Created on: {{ l.created_at }}</small>
+                    <br>
+                    {% if l.created_at != l.updated_at %}
+                    <small class="text-muted">Updated on: {{ l.updated_at }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+{% block js %}
+<script>
+    var d = document.getElementById("adpan-nav");
+    d.className += " active";
+</script>
+{% endblock %}
