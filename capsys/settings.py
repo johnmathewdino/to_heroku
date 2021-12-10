@@ -35,7 +35,7 @@ SECRET_KEY = 'd3tf8$tfd$85mp)i5$om(x0^5#y_733q@f3l+#78&vzg=%d@fz'
 
 # ALLOWED_HOSTS = ['capsys.pythonanywhere.com']
 #
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
@@ -186,7 +186,8 @@ if not DEBUG:
     #     os.path.join(BASE_DIR ,'static'),
     # )
     print('staticfilesdir')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 else:
     print("here2")
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
