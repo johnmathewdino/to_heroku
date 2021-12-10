@@ -180,10 +180,17 @@ STATIC_URL = "/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-print('staticfilesdir')
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+if not DEBUG:
+    print("here1")
+    # STATICFILES_DIRS = (
+    #     os.path.join(BASE_DIR ,'static'),
+    # )
+    print('staticfilesdir')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
     
+else:
+    print("here2")
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
 MEDIA_URL = '/media/'
