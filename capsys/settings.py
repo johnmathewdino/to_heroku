@@ -186,8 +186,8 @@ if not DEBUG:
     #     os.path.join(BASE_DIR ,'static'),
     # )
     print('staticfilesdir')
-    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+    
 else:
     print("here2")
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
