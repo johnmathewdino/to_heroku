@@ -35,7 +35,7 @@ SECRET_KEY = 'd3tf8$tfd$85mp)i5$om(x0^5#y_733q@f3l+#78&vzg=%d@fz'
 
 # ALLOWED_HOSTS = ['capsys.pythonanywhere.com']
 #
-DEBUG = os.environ.get('DEBUG_VALUE')
+DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
