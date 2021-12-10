@@ -100,7 +100,7 @@ AXES_LOGIN_FAILURE_LIMIT = 4
 AXES_LOCK_OUT_AT_FAILURE = True
 delta = dt.timedelta(minutes=3)
 AXES_COOLOFF_TIME = delta
-AXES_LOCK_OUT_BY_IP = True
+AXES_ONLY_USER_FAILURES  = True
 AXES_LOCKOUT_TEMPLATE = "main/loginlimitattempts.html"
 
 
