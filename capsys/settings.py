@@ -37,8 +37,8 @@ SECRET_KEY = 'd3tf8$tfd$85mp)i5$om(x0^5#y_733q@f3l+#78&vzg=%d@fz'
 #
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
 
 # For Messaging
 from django.contrib.messages import constants as messages
@@ -94,7 +94,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',
-    'main.middleware.OneSessionPerUserMiddleware',
 ]
 
 AXES_LOGIN_FAILURE_LIMIT = 4
