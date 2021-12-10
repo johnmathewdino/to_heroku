@@ -1,6 +1,5 @@
-from .models import LoggedInUser
 from django.contrib.sessions.models import Session
-from django.shortcuts import redirect
+# from django.shortcuts import redirect
 
 
 
@@ -28,8 +27,8 @@ class OneSessionPerUserMiddleware:
                     
                 request.user.logged_in_user.session_key = request.session.session_key
                 request.user.logged_in_user.save()
-            except LoggedInUser.DoesNotExist:
-                LoggedInUser.objects.create(user=request.user, session_key=session_key)
+            except Session.DoesNotExist:
+                Session.objects.create(session_key=session_key)
                 
             stored_session_key = request.user.logged_in_user.session_key
 

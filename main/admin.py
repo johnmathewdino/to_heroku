@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Announcement, UserBatchUpload, LoggedInUser
+from .models import Announcement, UserBatchUpload
 from django.contrib.admin.models import LogEntry, DELETION, ADDITION, CHANGE
 from django.utils.html import escape
 from django.urls import reverse
@@ -10,7 +10,6 @@ from .models import  Code
 admin.site.register(Announcement)
 admin.site.register(Code)
 admin.site.register(UserBatchUpload)
-admin.site.register(LoggedInUser)
 
 
 @admin.register(LogEntry)
