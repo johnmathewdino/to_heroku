@@ -231,6 +231,10 @@ def StudentAdviserAndPanelistView(response):
                 advisername = response.POST.get('advisername')
                 advisername = User.objects.get(id=advisername)
 
+                if Adviserrequest.objects.filter(user=response.user, name=advisername).exclude(status="decline"):
+                    messages.error(response, "You already Choose " +
+                                   str(advisername.get_full_name()) + " as Adviser")
+                    return HttpResponseRedirect(response.path)
                 
                 #LIMITATION AS ADVISER
                 adviser_limits = AdviserAndPanelist.objects.filter(adviser=advisername.userprofile)
@@ -270,11 +274,14 @@ def StudentAdviserAndPanelistView(response):
                 panel1name = response.POST.get('panel1name')
                 panel1name = User.objects.get(id=panel1name)
 
-                if Panel2request.objects.filter(user=response.user, name=panel1name):
+                if Panel2request.objects.filter(user=response.user, name=panel1name).exclude(status="decline"):
                     messages.error(response, "You already Choose " + str(panel1name.get_full_name()) + " as panelist No.2")
                     return HttpResponseRedirect(response.path)
-                elif Panel3request.objects.filter(user=response.user, name=panel1name):
+                elif Panel3request.objects.filter(user=response.user, name=panel1name).exclude(status="decline"):
                     messages.error(response, "You already Choose " + str(panel1name.get_full_name()) + " as panelist No.3 ")
+                    return HttpResponseRedirect(response.path)
+                elif Panel3request.objects.filter(user=response.user, name=panel1name).exclude(status="decline"):
+                    messages.error(response, "You already Choose " + str(panel1name.get_full_name()) + " as panelist No.1 ")
                     return HttpResponseRedirect(response.path)
                 else:
                     #LIMITATION AS PANELIST 1
@@ -318,11 +325,15 @@ def StudentAdviserAndPanelistView(response):
                 panel2name = response.POST.get('panel2name')
                 panel2name = User.objects.get(id=panel2name)
 
-                if Panel1request.objects.filter(user=response.user, name=panel2name):
+                if Panel1request.objects.filter(user=response.user, name=panel2name).exclude(status="decline"):
                     messages.error(response, "You already Choose " +
                                    str(panel2name.get_full_name()) + " as panelist No.1 ")
                     return HttpResponseRedirect(response.path)
-                elif Panel3request.objects.filter(user=response.user, name=panel2name):
+                elif Panel2request.objects.filter(user=response.user, name=panel2name).exclude(status="decline"):
+                    messages.error(response, "You already Choose " +
+                                   str(panel2name.get_full_name()) + " as panelist No.2")
+                    return HttpResponseRedirect(response.path)
+                elif Panel3request.objects.filter(user=response.user, name=panel2name).exclude(status="decline"):
                     messages.error(response, "You already Choose " +
                                    str(panel2name.get_full_name()) + " as panelist No.3")
                     return HttpResponseRedirect(response.path)
@@ -368,13 +379,17 @@ def StudentAdviserAndPanelistView(response):
                 panel3name = response.POST.get('panel3name')
                 panel3name = User.objects.get(id=panel3name)
 
-                if Panel1request.objects.filter(user=response.user, name=panel3name):
+                if Panel1request.objects.filter(user=response.user, name=panel3name).exclude(status="decline"):
                     messages.error(response, "You already Choose " +
                                    str(panel3name.get_full_name()) + " as panelist No.1 ")
                     return HttpResponseRedirect(response.path)
-                elif Panel2request.objects.filter(user=response.user, name=panel3name):
+                elif Panel2request.objects.filter(user=response.user, name=panel3name).exclude(status="decline"):
                     messages.error(response, "You already Choose " +
                                    str(panel3name.get_full_name()) + " as panelist No.2")
+                    return HttpResponseRedirect(response.path)
+                elif Panel3request.objects.filter(user=response.user, name=panel3name).exclude(status="decline"):
+                    messages.error(response, "You already Choose " +
+                                   str(panel3name.get_full_name()) + " as panelist No.3")
                     return HttpResponseRedirect(response.path)
                 else:
 

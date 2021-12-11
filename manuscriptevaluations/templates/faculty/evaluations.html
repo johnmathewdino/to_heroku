@@ -145,7 +145,7 @@
 
                             <div class="col-md-9">
                                 <a href="{% url 'FacultyEvaluateSubmissions' user.user.id %}"
-                                   class="forum-item-title">Title: {{ user.user.userprofile.group_title | title }}
+                                   class="forum-item-title">{{ user.user.userprofile.group_title | title }}
                                 </a>
                                 <div class="forum-sub-title">
                                     {{ user.user.get_full_name }}'s Group
@@ -174,7 +174,7 @@
 
                             <div class="col-md-9">
                                 <a href="{% url 'FacultyEvaluateSubmissions' users.user.id %}"
-                                   class="forum-item-title">Title: {{ users.user.userprofile.group_title | title }}
+                                   class="forum-item-title">{{ users.user.userprofile.group_title | title }}
                                 </a>
                                 <div class="forum-sub-title">
                                     {{ users.user.get_full_name }}'s Group

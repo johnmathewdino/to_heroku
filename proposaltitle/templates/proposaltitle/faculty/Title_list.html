@@ -240,6 +240,84 @@ Group Proposal
         <br>
         {% endif %}
         {% endfor %}
+        <hr>
+        <br>
+
+        {% for titles in titlelists %}
+        {% if titles.status == "Accepted" %}
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="d-flex">
+                            <img src="{{ titles.user.userprofile.image.url }}" class="me-3 rounded-circle"
+                                style="width: 50px; height: 50px">
+                            <div>
+                                <a href="{% url 'FacultyTitleComment' titles.id %}" style="text-decoration: none">
+        
+                                    <h5 class="fw-bold">
+                                        {{ titles.title | title }}
+                                    </h5>
+                                </a>
+        
+                                <small class="text-muted">Posted on {{ titles.created_at }}
+        
+                                    {% if titles.created_at != titles.updated_at %}
+                                    Modified on {{ titles.updated_at }}
+                                    {% endif %}
+        
+                                </small>
+        
+        
+                            </div>
+                        </div>
+                    </div>
+                    {% if titles.edited != None%}
+                    <div class="col-2">
+                        <h6 style="color: rgb(13, 145, 35);">{{ titles.edited}}</h6>
+                    </div>
+                    {% endif %}
+                </div>
+        
+        
+            </div>
+        
+            <div class="card-body">
+                {{ titles.description }}
+            </div>
+        
+        
+        
+        
+        
+        
+            {% if titles.status == "Accepted" %}
+            <div class="card-footer" style="background: #0dcaf0">
+        
+                Title Status: {{ titles.status }}
+            </div>
+            {% elif titles.status == "Rejected" %}
+            <div class="card-footer" style="background: #ea9799">
+        
+                Title Status: {{ titles.status }}
+            </div>
+            {% elif titles.status == "Title Needs Clarifications" %}
+            <div class="card-footer" style="background: #b7b1b1">
+        
+                Title Status: {{ titles.status }}
+            </div>
+        
+            {% else %}
+            <div class="card-footer">
+                Title Status: Title proposed <small><i>await approval</i></small>
+            </div>
+        
+        
+            {% endif %}
+        </div>
+        <br>
+        {% endif %}
+        {% endfor %}
     </div>
 </div>
 <br>

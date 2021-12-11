@@ -15,6 +15,12 @@ class SubmitForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SubmitForm, self).__init__(*args, **kwargs)
+        self.fields['pdf_submit'].widget.attrs.update({
+            'accept': '.pdf'
+        })
+
+    def __init__(self, *args, **kwargs):
+        super(SubmitForm, self).__init__(*args, **kwargs)
         self.fields['submit_content'].label = ""
         self.fields['pdf_submit'].label = ""
 

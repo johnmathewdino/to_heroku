@@ -37,8 +37,8 @@ SECRET_KEY = 'd3tf8$tfd$85mp)i5$om(x0^5#y_733q@f3l+#78&vzg=%d@fz'
 #
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['capsys-test.herokuapp.com']
 
 # For Messaging
 from django.contrib.messages import constants as messages
@@ -98,7 +98,7 @@ MIDDLEWARE = [
 
 AXES_LOGIN_FAILURE_LIMIT = 4
 AXES_LOCK_OUT_AT_FAILURE = True
-delta = dt.timedelta(minutes=3)
+delta = dt.timedelta(minutes=1)
 AXES_COOLOFF_TIME = delta
 AXES_USE_USER_AGENT = True
 AXES_LOCKOUT_TEMPLATE = "main/loginlimitattempts.html"

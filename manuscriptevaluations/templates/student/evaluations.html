@@ -142,9 +142,9 @@
 
                         <div class="col-md-9" href="">
                             <div>
-                            <h2>{{ submit.submission_title }} </h2>
+                            <h3>{{ submit.submission_title | title}} </h3>
                             </div>
-                            <mark style="background-color: rgb(130, 212, 130); color: rgb(12, 12, 12)"><strong>{{ submit.sub_evaluator }}/3</strong> Panelist Has Been Evaluated</mark>
+                            <span class="badge bg-success">{{ submit.sub_evaluator }}/3 Panelist Has Evaluated</span>
                             
                             <a href="{% url 'Evaluated Student' submit.id %}" class="forum-item-title">
                                 <div class="forum-sub-title">
