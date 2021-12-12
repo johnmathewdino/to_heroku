@@ -247,7 +247,7 @@ def FacultyEvaluateSubmissions(response, id):
             "unseen": unseen,
             "resuser": resuser,
             "adviser":adviser,
-            'evals':evals,
+            
 
         })
     else:
