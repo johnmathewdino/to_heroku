@@ -67,8 +67,7 @@ def FacultyTitleview(response):
             name = title.group
             id = title.user_id
             user = UserProfile.objects.get(id=id)
-            
-            
+                 
             if [name,id,user] not in groupnames:
                 # print(name)
                 # print(title.user)

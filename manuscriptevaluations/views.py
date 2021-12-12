@@ -230,7 +230,15 @@ def FacultyEvaluateSubmissions(response, id):
             })
         else:
             submissions = StudentSubmit.objects.filter(user=id, for_eval_submit="1")
-            evaluation = Evaluations.objects.filter(submission__user=id, user=response.user)
+            for sub in submissions:
+                print(sub.id)
+                evaluation = Evaluations.objects.filter(submission=sub, user=response.user)
+                for eval in evaluation:
+                    print(eval.user)
+                    print(eval.submission.id)
+            evals = Evaluations.objects.filter(submission=eval.submission.id, user=eval.user)
+            print(evals)
+            
         userrole = response.user.userprofile.role
 
         # FOR CHAT PLEASE INCLUDE IN EVERY VIEWS and OUTPUT resuser AND unseen
@@ -246,7 +254,8 @@ def FacultyEvaluateSubmissions(response, id):
             "unseen": unseen,
             "resuser": resuser,
             "adviser":adviser,
-            'evaluation':evaluation,
+            'evals':evals,
+
         })
     else:
         return redirect("page404")
