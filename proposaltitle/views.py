@@ -67,17 +67,18 @@ def FacultyTitleview(response):
             name = title.group
             id = title.user_id
             user = UserProfile.objects.get(id=id)
-                 
-            if [name,id,user] not in groupnames:
+            title_count = ProposeTitle.objects.filter(
+                user=id, status="").count()
+            if [name,id,user, title_count] not in groupnames:
                 # print(name)
                 # print(title.user)
                 if title.group != "None":
-                    groupnames.append([name,id,user])
+                    groupnames.append([name, id, user, title_count])
                     print("here")
                 if title.group == "None" :
-                    groupnames.append([title.user.get_full_name ,id])
+                    groupnames.append([title.user.get_full_name, id, title_count])
 
-        title_count = ProposeTitle.objects.filter(user=id, status="").count()
+        
         print(title_count)
         userrole = response.user.userprofile.role
         name = response.user.get_full_name()

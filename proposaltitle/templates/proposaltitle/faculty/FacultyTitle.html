@@ -149,8 +149,8 @@ Proposed Title
                 <div class="col-md-9" href="">
                     <a href="{% url 'Title_List' groups.1 %}" class="forum-item-title">{{ groups.0 | title }}
                     </a>
-                    {% if title_count != 0 %}
-                    <span class="badge bg-success">{{ title_count }} Pending Title</span>
+                    {% if groups.3 != 0 %}
+                    <span class="badge bg-success">{{ groups.3 }} Pending Title</span>
                     {% endif %}
                     <div class="forum-sub-title">
                         
