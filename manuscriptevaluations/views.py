@@ -230,14 +230,7 @@ def FacultyEvaluateSubmissions(response, id):
             })
         else:
             submissions = StudentSubmit.objects.filter(user=id, for_eval_submit="1")
-            for sub in submissions:
-                print(sub.id)
-                evaluation = Evaluations.objects.filter(submission=sub, user=response.user)
-                for eval in evaluation:
-                    print(eval.user)
-                    print(eval.submission.id)
-            evals = Evaluations.objects.filter(submission=eval.submission.id, user=eval.user)
-            print(evals)
+            
             
         userrole = response.user.userprofile.role
 
