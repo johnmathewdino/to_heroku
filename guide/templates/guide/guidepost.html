@@ -71,8 +71,8 @@
                                 </div>
                             </div>
                             <div class="col-10">
-                                <h2>Guide and Formatting</h2>
-                                <span>In this section, you can view text, images or download pdf files that contains guide or lessons that can help you complete your Capstone Project. </span>
+                                <h2>Capstone Guides</h2>
+                                <span>View text, image, or pdfs that can help you complete your Capstone Project</span>
                             </div>
 
 
@@ -103,9 +103,9 @@
 
 
             </div>
-                {% if posts.pdf %}
+                {% if posts.File %}
                 <div class="forum-sub-title" style="display: flex; justify-content: center">
-                    <button type="button" class="btn btn-success"><a href="{{ posts.pdf.url }}" target="blank" style="color: white;text-decoration: none">Download PDF</a></button>
+                    <button type="button" class="btn btn-success"><a href="{{ posts.File.url }}" target="blank" style="color: white;text-decoration: none">Download File</a></button>
                 </div>
                 {% endif %}
 
