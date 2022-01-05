@@ -94,6 +94,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'axes.middleware.AxesMiddleware',
+    'main.middleware.OneSessionPerUserMiddleware',
 ]
 
 AXES_LOGIN_FAILURE_LIMIT = 4
